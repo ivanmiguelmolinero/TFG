@@ -1,0 +1,4 @@
+Mirar estructura de perceval
+Django Python
+Analizar Git
+Pensar en qué me voy a centrar: parte automatizada
