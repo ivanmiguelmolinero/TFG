@@ -1,5 +1,5 @@
 import argparse
-from ast import arg
+
 from perceval.backends.core.github import GitHub
 
 # Parse command line arguments

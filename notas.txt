@@ -2,3 +2,6 @@ Mirar estructura de perceval
 Django Python
 Analizar Git
 Pensar en qué me voy a centrar: parte automatizada
+------------------------------------
+Dudas:
+ * Preguntar qué hace exactamente perceval_git_1.py
