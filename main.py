@@ -1,9 +1,17 @@
 from github import Github
 
 # Introducimos la token del usuario
-print("Key:")
+print("Key (si no la tiene pulse INTRO):")
 key = input()
-g = Github(key)
+# Si tenemos la clave también podemos hacer esto
+if key != "":
+    g = Github(key)
+    #Contamos los commits de cada repositorio del usuario
+    for repoGit in g.get_user().get_repos():
+        print(repoGit.name, repoGit.get_commits().totalCount)
+else:
+    g = Github()
+#repo_path = "PyGithub/PyGithub"
 repo_path = "ivanmiguelmolinero/Scappe-Room"
 
 # Introducimos la dirección del repo
@@ -15,9 +23,6 @@ for content_file in contents: # Comprobamos si alguno es el "LICENSE"
         file = content_file.name
         print("Content name:", content_file.name)
 
-# Contamos los commits
-for repoGit in g.get_user().get_repos():
-    print(repoGit.name, repoGit.get_commits().totalCount)
 
 # Mostramos los commits del repo seleccionado
 print(repo.name)
@@ -25,3 +30,6 @@ print("COMMITS: ", repo.get_commits().totalCount)
 
 # Mostramos lenguajes utilizados
 print("Lenguaje: ", list(repo.get_languages().keys()))
+
+#Mostramos la última vez que se actualizó
+print("Actualizado por última vez:", repo.updated_at)
