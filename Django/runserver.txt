@@ -1,0 +1,3 @@
+Para iniciar el servidor:
+1. Activa el env con 'myvenv/scripts/activate'
+2. Ejecuta 'python manage.py runserver'
