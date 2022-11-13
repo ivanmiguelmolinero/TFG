@@ -9,5 +9,11 @@
 <body>
     <h1>Aquí se crearán todas las opciones de BRR</h1>
     <p>Empezando...</p>
+    <h2>Prueba de formulario</h2>
+    <form action="" method="POST"> {% csrf_token %}
+        {{ form.as_p }}
+        <input type="text" name="Repo" id="">
+        <input type="submit" value="SEND">
+    </form>
 </body>
 </html>
