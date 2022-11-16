@@ -15,7 +15,8 @@
     <h2>Prueba de formulario</h2>
     <form method="GET" class="post-form" action="post">{% csrf_token %}
         {{ form.as_p }}
-        <input type="text" name="text" id="text">
+        Repo a analizar: <input type="text" name="text" id="text">
+        ¿Tiene licencia?: <input type="text" name="license">
         <button type="submit" class="save btn btn-default">Save</button>
     </form>
 </body>

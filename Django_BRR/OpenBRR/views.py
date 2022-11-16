@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
 from .models import ModelRepo
 from .forms import RepoGithub
+from .analize_repo import get_language, get_license
 
 # Create your views here.
 
@@ -16,7 +17,11 @@ def post_main(request):
 
 def post_repo(request):
     if request.method == 'GET':
-        posts = request.GET['text']
+        posts = []
+        posts.append('Este repo usa los siguientes lenguajes: ' + str(get_language(request.GET['text'])))
+        posts.append('Licencia: ' + get_license((request.GET['text']), request.GET['license']))
+        #posts = ('Este repo usa los siguientes lenguajes:', get_language(request.GET['text']),
+         #        '<br> Licencia: ', get_license(request.GET['license']))
         return render(request, 'OpenBRR/repo_prueba.html', {'post': posts})
     else:
         return render(request, 'OpenBRR/main.html', {})
