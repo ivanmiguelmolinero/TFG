@@ -34,17 +34,17 @@ from github import Github
 # #Mostramos la última vez que se actualizó
 # print("Actualizado por última vez:", repo.updated_at)
 
+g = Github()
+
 #-- Obtiene los lenguajes del repositorio
 def get_language(data):
-    g = Github()
     repo_path = data
     repo = g.get_repo(repo_path)
     return list(repo.get_languages().keys())
 
 #-- Comprueba si tiene un archivo de licencia
 def get_license(repo_data, data):
-    if data == '':
-        g = Github()
+    if data == '': #-- Si el usuario no ha introducido nada manualmente, lo analizamos
         repo_path = repo_data
         repo = g.get_repo(repo_path)
         contents = repo.get_contents("") # Obtenemos su contenido
@@ -54,5 +54,14 @@ def get_license(repo_data, data):
                 return 'Sí'
         if not license_found:
             return 'No'
-    else:
+    else: #-- Si no devolvemos lo que ha introducido
         return data
+    
+def get_commits(data, num_commits):
+    if num_commits == '': #-- Si el usuario no ha introducido nada manualmente, lo analizamos
+        repo_path = data
+        repo = g.get_repo(repo_path)
+        return str(repo.get_commits().totalCount)
+    else: #-- Si no devolvemos lo que ha introducido
+        return num_commits
+
