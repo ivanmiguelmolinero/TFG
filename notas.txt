@@ -10,8 +10,12 @@ Dudas:
 
 -----------------------------------------------
 openBRR => QUE INPUTS NECESITA
-7 PESTAÑAS
+7 PESTAÑAS => 8va peso de cada atributo
 METER LOS PESOS DE CADA APARTADO Y NOTA FINAL
 QUE PUEDAS ELEGIR ENTRE VERSION SIMPLE O AVANZADA
 COSAS DONDE METEMOS DATOS AUTOMÁTICAMENTE Y OTROS NO
 BOOTSTRAP => FORMULARIOS
+
+--------------------------------------------------------------------------------------------
+Primero analizar automáticamente y luego dar la opción de cambiar lo que quiera.
+----------------------------------------------------------------------------------
