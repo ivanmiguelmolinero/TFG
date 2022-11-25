@@ -8,9 +8,16 @@
 </head>
 <body>
 
-    <h1> {% for text in post %}
-        {{ text }} <br>
-        {% endfor %}
+    <h1>
+        {% with languages=post.0 license=post.1 commits=post.2 %}
+        Este repo usa los siguientes lenguajes: <input type="text" placeholder="{{ languages }}"><br>
+        {% if license == 'Sí' %}
+            Licencia: <input type="radio" value="Sí" name="license" checked> Sí <input type="radio" value="No" name="license"> No<br>
+        {% else %}
+            Licencia: <input type="radio" value="Sí" name="license"> Sí <input type="radio" value="No" name="license" checked> No<br>
+        {% endif %}
+        Número de commits: <input type="text" placeholder="{{ commits }}"><br>
+        {% endwith %}
     </h1>
 </body>
 </html>

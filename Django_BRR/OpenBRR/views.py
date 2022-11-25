@@ -19,9 +19,9 @@ def post_repo(request):
     if request.method == 'GET':
         posts = []
         try:
-            posts.append('Este repo usa los siguientes lenguajes: ' + str(get_language(request.GET['text'])))
-            posts.append('Licencia: ' + get_license((request.GET['text']), request.GET['license']))
-            posts.append('Número de commits: ' + get_commits(request.GET['text'], request.GET['commits']))
+            posts.append(str(get_language(request.GET['text'])))
+            posts.append( get_license((request.GET['text']), request.GET['license']))
+            posts.append(get_commits(request.GET['text'], request.GET['commits']))
             return render(request, 'OpenBRR/repo_prueba.html', {'post': posts})
         except:
             posts.append('Error 404: Repositorio no encontrado. Por favor revisa que lo has escrito correctamente.')
