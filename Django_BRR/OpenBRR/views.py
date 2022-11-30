@@ -17,15 +17,20 @@ def post_main(request):
 
 def post_repo(request):
     if request.method == 'GET':
-        posts = []
+        posts = {}
         try:
-            posts.append(str(get_language(request.GET['text'])))
-            posts.append( get_license((request.GET['text']), request.GET['license']))
-            posts.append(get_commits(request.GET['text'], request.GET['commits']))
-            posts.append(get_wiki(request.GET['text']))
+            # posts.append(str(get_language(request.GET['text'])))
+            # posts.append( get_license((request.GET['text']), request.GET['license']))
+            # posts.append(get_commits(request.GET['text'], request.GET['commits']))
+            # posts.append(get_wiki(request.GET['text']))
+            posts['languages'] = str(get_language(request.GET['text']))
+            posts['license'] = get_license((request.GET['text']), request.GET['license'])
+            posts['commits'] = get_commits(request.GET['text'], request.GET['commits'])
+            posts['wiki'] = get_wiki(request.GET['text'])
             return render(request, 'OpenBRR/repo_prueba.html', {'post': posts})
         except:
-            posts.append('Error 404: Repositorio no encontrado. Por favor revisa que lo has escrito correctamente.')
+            posts['eror'] = ('Error 404: Es posible que el nombre del repositorio esté mal o ' +
+                            'que se haya excedido el número de peticiones a Github.')
             return render(request, 'OpenBRR/repo_prueba.html', {'post': posts})
     else:
         return render(request, 'OpenBRR/main.html', {})

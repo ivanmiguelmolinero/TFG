@@ -9,20 +9,27 @@
 <body>
 
     <h1>
-        {% with languages=post.0 license=post.1 commits=post.2 wiki=post.3 %}
-        Este repo usa los siguientes lenguajes: <input type="text" placeholder="{{ languages }}"><br>
-        {% if license == 'Sí' %}
-            Licencia: <input type="radio" value="Sí" name="license" checked> Sí <input type="radio" value="No" name="license"> No<br>
-        {% else %}
-            Licencia: <input type="radio" value="Sí" name="license"> Sí <input type="radio" value="No" name="license" checked> No<br>
-        {% endif %}
-        Número de commits: <input type="text" placeholder="{{ commits }}"><br>
-        {% if wiki == True %}
-            ¿Tiene wiki?: <input type="radio" value="Sí" name="wiki" checked> Sí <input type="radio" value="No" name="wiki"> No<br>
-        {% else %}
-            ¿Tiene wiki?: <input type="radio" value="Sí" name="wiki"> Sí <input type="radio" value="No" name="wiki" checked> No<br>
-        {% endif %}
-        {% endwith %}
+        {% for key, value in post.items %}
+            {% if key == 'languages' %}
+                <p>Lenguajes utilizados: <input type="text" placeholder="{{ value }}"><br>
+            {% elif key == 'license' %}
+                {% if value == 'Sí' %}
+                   <p>Licencia: <input type="radio" value="Sí" name="license" checked> Sí <input type="radio" value="No" name="license"> No</p><br>
+                {% else %}
+                   <p>Licencia: <input type="radio" value="Sí" name="license"> Sí <input type="radio" value="No" name="license" checked> No</p><br>
+                {% endif %}
+            {% elif key == 'commits' %}
+                    <p>Número de commits: <input type="text" placeholder="{{ value }}"><br></p>
+            {% elif key == 'wiki' %}
+                {% if value == True %}
+                    <p>¿Tiene wiki?: <input type="radio" value="Sí" name="wiki" checked> Sí <input type="radio" value="No" name="wiki"> No<br></p>
+                {% else %}
+                    <p>¿Tiene wiki?: <input type="radio" value="Sí" name="wiki"> Sí <input type="radio" value="No" name="wiki" checked> No<br></p>
+                {% endif %}
+            {% else %}
+                    <p>{{ value }}</p>
+            {% endif %}
+        {% endfor %}
     </h1>
 </body>
 </html>
