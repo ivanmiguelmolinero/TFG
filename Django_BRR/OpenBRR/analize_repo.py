@@ -65,3 +65,7 @@ def get_commits(data, num_commits):
     else: #-- Si no devolvemos lo que ha introducido
         return num_commits
 
+def get_wiki(data):
+    repo_path = data
+    repo = g.get_repo(repo_path)
+    return repo.has_wiki

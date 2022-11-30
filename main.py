@@ -33,3 +33,5 @@ print("Lenguaje: ", list(repo.get_languages().keys()))
 
 #Mostramos la última vez que se actualizó
 print("Actualizado por última vez:", repo.updated_at)
+
+print("Tiene wiki:", repo.has_wiki)

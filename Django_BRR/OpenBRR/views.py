@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
 from .models import ModelRepo
 from .forms import RepoGithub
-from .analize_repo import get_language, get_license, get_commits
+from .analize_repo import get_language, get_license, get_commits, get_wiki
 
 # Create your views here.
 
@@ -22,6 +22,7 @@ def post_repo(request):
             posts.append(str(get_language(request.GET['text'])))
             posts.append( get_license((request.GET['text']), request.GET['license']))
             posts.append(get_commits(request.GET['text'], request.GET['commits']))
+            posts.append(get_wiki(request.GET['text']))
             return render(request, 'OpenBRR/repo_prueba.html', {'post': posts})
         except:
             posts.append('Error 404: Repositorio no encontrado. Por favor revisa que lo has escrito correctamente.')
