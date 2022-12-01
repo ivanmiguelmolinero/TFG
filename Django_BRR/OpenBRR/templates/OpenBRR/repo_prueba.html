@@ -4,32 +4,35 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="../../static/js/datos.js"></script>
     <title>Seguimos probando</title>
 </head>
-<body>
-
+<body onload="main();">
     <h1>
-        {% for key, value in post.items %}
-            {% if key == 'languages' %}
-                <p>Lenguajes utilizados: <input type="text" placeholder="{{ value }}"><br>
-            {% elif key == 'license' %}
-                {% if value == 'Sí' %}
-                   <p>Licencia: <input type="radio" value="Sí" name="license" checked> Sí <input type="radio" value="No" name="license"> No</p><br>
+        <p><button id="mostrar">Mostrar</button></p>
+        <div id="content">
+            {% for key, value in post.items %}
+                {% if key == 'languages' %}
+                    <p>Lenguajes utilizados: <input type="text" placeholder="{{ value }}"><br>
+                {% elif key == 'license' %}
+                    {% if value == 'Sí' %}
+                    <p>Licencia: <input type="radio" value="Sí" name="license" checked> Sí <input type="radio" value="No" name="license"> No</p><br>
+                    {% else %}
+                    <p>Licencia: <input type="radio" value="Sí" name="license"> Sí <input type="radio" value="No" name="license" checked> No</p><br>
+                    {% endif %}
+                {% elif key == 'commits' %}
+                        <p>Número de commits: <input type="text" placeholder="{{ value }}"><br></p>
+                {% elif key == 'wiki' %}
+                    {% if value == True %}
+                        <p>¿Tiene wiki?: <input type="radio" value="Sí" name="wiki" checked> Sí <input type="radio" value="No" name="wiki"> No<br></p>
+                    {% else %}
+                        <p>¿Tiene wiki?: <input type="radio" value="Sí" name="wiki"> Sí <input type="radio" value="No" name="wiki" checked> No<br></p>
+                    {% endif %}
                 {% else %}
-                   <p>Licencia: <input type="radio" value="Sí" name="license"> Sí <input type="radio" value="No" name="license" checked> No</p><br>
+                        <p>{{ value }}</p>
                 {% endif %}
-            {% elif key == 'commits' %}
-                    <p>Número de commits: <input type="text" placeholder="{{ value }}"><br></p>
-            {% elif key == 'wiki' %}
-                {% if value == True %}
-                    <p>¿Tiene wiki?: <input type="radio" value="Sí" name="wiki" checked> Sí <input type="radio" value="No" name="wiki"> No<br></p>
-                {% else %}
-                    <p>¿Tiene wiki?: <input type="radio" value="Sí" name="wiki"> Sí <input type="radio" value="No" name="wiki" checked> No<br></p>
-                {% endif %}
-            {% else %}
-                    <p>{{ value }}</p>
-            {% endif %}
-        {% endfor %}
+            {% endfor %}
+        </div>
     </h1>
 </body>
 </html>
