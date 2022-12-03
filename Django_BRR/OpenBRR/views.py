@@ -1,8 +1,9 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
+from github.GithubException import RateLimitExceededException
 from .models import ModelRepo
 from .forms import RepoGithub
-from .analize_repo import get_language, get_license, get_commits, get_wiki
+from .analize_repo import get_repository, get_language, get_license, get_commits, get_wiki, get_forks, get_subscribers, get_organization
 
 # Create your views here.
 
@@ -19,18 +20,21 @@ def post_repo(request):
     if request.method == 'GET':
         posts = {}
         try:
-            # posts.append(str(get_language(request.GET['text'])))
-            # posts.append( get_license((request.GET['text']), request.GET['license']))
-            # posts.append(get_commits(request.GET['text'], request.GET['commits']))
-            # posts.append(get_wiki(request.GET['text']))
-            posts['languages'] = str(get_language(request.GET['text']))
-            posts['license'] = get_license((request.GET['text']), request.GET['license'])
-            posts['commits'] = get_commits(request.GET['text'], request.GET['commits'])
-            posts['wiki'] = get_wiki(request.GET['text'])
+            repo = get_repository(request.GET['text'])
+            #posts['languages'] = str(get_language(request.GET['text']))
+            posts['languages'] = list(repo.get_languages().keys())
+            #posts['license'] = get_license((request.GET['text']), request.GET['license'])
+            posts['commits'] = repo.get_commits().totalCount
+            posts['wiki'] = repo.has_wiki
+            posts['forks'] = repo.forks_count
+            posts['subscribers'] = repo.subscribers_count
+            posts['organization'] = str(get_organization(repo))
             return render(request, 'OpenBRR/repo_prueba.html', {'post': posts})
-        except:
-            posts['eror'] = ('Error 404: Es posible que el nombre del repositorio esté mal o ' +
-                            'que se haya excedido el número de peticiones a Github.')
+        except RateLimitExceededException:
+            posts['error'] = ('Error: Se ha excedido el número de peticiones a GitHub. Intentelo de nuevo más tarde.')
+            return render(request, 'OpenBRR/repo_prueba.html', {'post': posts})
+        except Exception:
+            posts['error'] = ("Error: " + str(Exception))
             return render(request, 'OpenBRR/repo_prueba.html', {'post': posts})
     else:
         return render(request, 'OpenBRR/main.html', {})

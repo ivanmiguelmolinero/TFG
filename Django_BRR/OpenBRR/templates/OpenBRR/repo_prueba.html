@@ -9,7 +9,7 @@
 </head>
 <body onload="main();">
     <h1>
-        <p><button id="mostrar">Mostrar</button></p>
+        <p><button id="mostrar">Mostrar pestaña de comunidad</button></p>
         <div id="content">
             {% for key, value in post.items %}
                 {% if key == 'languages' %}
@@ -27,6 +27,19 @@
                         <p>¿Tiene wiki?: <input type="radio" value="Sí" name="wiki" checked> Sí <input type="radio" value="No" name="wiki"> No<br></p>
                     {% else %}
                         <p>¿Tiene wiki?: <input type="radio" value="Sí" name="wiki"> Sí <input type="radio" value="No" name="wiki" checked> No<br></p>
+                    {% endif %}
+                {% elif key == 'forks' %}
+                    <p>Número de forks: <input type="text" placeholder="{{ value }}"><br></p>
+                {% elif key == 'subscribers' %}
+                    <p>Número de suscriptores: <input type="text" placeholder="{{ value }}"><br></p>
+                {% elif key == 'organization' %}
+                    <p>¿Pertenece a una organización?<br>
+                    {% if value == 'None' %}
+                        <input type="radio" value="Sí" name="organization"> Sí  <input type="text" placeholder="Nombre de la organización">
+                        <input type="radio" value="No" name="organization" checked> No<br></p>
+                    {% else %}
+                        <input type="radio" value="Sí" name="organization" checked> Sí <input type="text" placeholder="{{ value }}">
+                        <input type="radio" value="No" name="organization"> No<br></p>
                     {% endif %}
                 {% else %}
                         <p>{{ value }}</p>

@@ -1,0 +1,6 @@
+Comunidad:
+	- Forks (repo.forks_count())
+	- Commits
+	- Última actualización
+	- ¿Pertenece a una organización? (repo.organization)
+	- Número de suscriptores (repo.subscribers_count)
