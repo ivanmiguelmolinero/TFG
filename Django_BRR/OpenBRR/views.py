@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
+from datetime import datetime
 from github.GithubException import RateLimitExceededException
 from .models import ModelRepo
 from .forms import RepoGithub
@@ -29,7 +30,13 @@ def post_repo(request):
             posts['forks'] = repo.forks_count
             posts['subscribers'] = repo.subscribers_count
             posts['organization'] = str(get_organization(repo))
-            return render(request, 'OpenBRR/repo_prueba.html', {'post': posts})
+            fecha_update = (str(repo.pushed_at.date().year) + '-' + str(repo.pushed_at.date().month) + '-' + str(repo.pushed_at.date().day))
+            posts['lastUpdate'] = repo.pushed_at.date()
+            now = datetime.now()
+            day = to_valid_format(now.day)
+            month = to_valid_format(now.month)
+            now = (str(now.year) + '-' + month + '-' + day)
+            return render(request, 'OpenBRR/repo_prueba.html', {'post': posts, 'date': fecha_update, 'now': now})
         except RateLimitExceededException:
             posts['error'] = ('Error: Se ha excedido el número de peticiones a GitHub. Intentelo de nuevo más tarde.')
             return render(request, 'OpenBRR/repo_prueba.html', {'post': posts})
@@ -38,3 +45,10 @@ def post_repo(request):
             return render(request, 'OpenBRR/repo_prueba.html', {'post': posts})
     else:
         return render(request, 'OpenBRR/main.html', {})
+
+#-- Función que devuelve la fecha en formato correcto
+def to_valid_format(date):
+    if (date < 10):
+        return '0' + str(date)
+    else:
+        return str(date)

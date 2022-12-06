@@ -13,7 +13,7 @@
         <div id="content">
             {% for key, value in post.items %}
                 {% if key == 'languages' %}
-                    <p>Lenguajes utilizados: <input type="text" placeholder="{{ value }}"><br>
+                    <p>Lenguajes utilizados: <input type="text" value="{{ value }}"><br>
                 {% elif key == 'license' %}
                     {% if value == 'Sí' %}
                     <p>Licencia: <input type="radio" value="Sí" name="license" checked> Sí <input type="radio" value="No" name="license"> No</p><br>
@@ -21,7 +21,7 @@
                     <p>Licencia: <input type="radio" value="Sí" name="license"> Sí <input type="radio" value="No" name="license" checked> No</p><br>
                     {% endif %}
                 {% elif key == 'commits' %}
-                        <p>Número de commits: <input type="text" placeholder="{{ value }}"><br></p>
+                        <p>Número de commits: <input type="text" value="{{ value }}"><br></p>
                 {% elif key == 'wiki' %}
                     {% if value == True %}
                         <p>¿Tiene wiki?: <input type="radio" value="Sí" name="wiki" checked> Sí <input type="radio" value="No" name="wiki"> No<br></p>
@@ -29,18 +29,21 @@
                         <p>¿Tiene wiki?: <input type="radio" value="Sí" name="wiki"> Sí <input type="radio" value="No" name="wiki" checked> No<br></p>
                     {% endif %}
                 {% elif key == 'forks' %}
-                    <p>Número de forks: <input type="text" placeholder="{{ value }}"><br></p>
+                    <p>Número de forks: <input type="text" value="{{ value }}"><br></p>
                 {% elif key == 'subscribers' %}
-                    <p>Número de suscriptores: <input type="text" placeholder="{{ value }}"><br></p>
+                    <p>Número de suscriptores: <input type="text" value="{{ value }}"><br></p>
                 {% elif key == 'organization' %}
                     <p>¿Pertenece a una organización?<br>
                     {% if value == 'None' %}
-                        <input type="radio" value="Sí" name="organization"> Sí  <input type="text" placeholder="Nombre de la organización">
+                        <input type="radio" value="Sí" name="organization"> Sí  <input type="text" value="Nombre de la organización">
                         <input type="radio" value="No" name="organization" checked> No<br></p>
                     {% else %}
-                        <input type="radio" value="Sí" name="organization" checked> Sí <input type="text" placeholder="{{ value }}">
+                        <input type="radio" value="Sí" name="organization" checked> Sí <input type="text" value="{{ value }}">
                         <input type="radio" value="No" name="organization"> No<br></p>
                     {% endif %}
+                {% elif key == 'lastUpdate' %}
+                        <p>Última actualización: 
+                            <input type="date" id="start" name="update" value="{{ date }}" min="2001-01-01" max="{{ now }}"></p>
                 {% else %}
                         <p>{{ value }}</p>
                 {% endif %}

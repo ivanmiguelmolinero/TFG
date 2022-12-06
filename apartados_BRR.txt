@@ -4,3 +4,9 @@ Comunidad:
 	- Última actualización
 	- ¿Pertenece a una organización? (repo.organization)
 	- Número de suscriptores (repo.subscribers_count)
+
+Seguridad:
+	- Licencia
+	- Tiene descargas ¿Sí o no? ¿Cuántas? (repo.has_downloads)(repo.downloads().totalCount())
+	-  ¿Tiene algún problema abierto? ¿Sí o no? ¿Cuántos?
+	- Veces visto (repo.watchers_count)

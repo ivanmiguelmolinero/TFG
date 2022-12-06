@@ -34,7 +34,8 @@ try:
     print("Lenguaje: ", list(repo.get_languages().keys()))
 
     #Mostramos la última vez que se actualizó
-    print("Actualizado por última vez:", repo.updated_at)
+    fecha = repo.pushed_at
+    print("Actualizado por última vez:", repo.pushed_at)
 
     print("Tiene wiki:", repo.has_wiki)
 
@@ -42,8 +43,13 @@ try:
 
     organizacion = repo.organization
     print("¿Pertenece a una organización?", repo.organization)
-    print("Login: ", organizacion.login)
+    #print("Login: ", organizacion.login)
+
+    downloads = repo.get_downloads()
 
     print("Número de suscriptores: ", repo.subscribers_count)
+    fecha_d = fecha.date()
+    fecha_h = fecha.ctime()
+    print("p")
 except RateLimitExceededException:
     print("Número máximo de peticiones alcanzadas. Inténtelo de nuevo más tarde.")
