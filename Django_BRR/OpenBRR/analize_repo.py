@@ -14,19 +14,12 @@ def get_language(data):
     return list(repo.get_languages().keys())
 
 #-- Comprueba si tiene un archivo de licencia
-def get_license(repo_data, data):
-    if data == '': #-- Si el usuario no ha introducido nada manualmente, lo analizamos
-        repo_path = repo_data
-        repo = g.get_repo(repo_path)
-        contents = repo.get_contents("") # Obtenemos su contenido
-        license_found = False
-        for content_file in contents: # Comprobamos si alguno es el "LICENSE"
-            if (content_file.name[:7] == "LICENSE"):
-                return 'Sí'
-        if not license_found:
-            return 'No'
-    else: #-- Si no devolvemos lo que ha introducido
-        return data
+def get_licencia(repo):
+    try:
+        repo.get_license()
+        return 'Sí'
+    except:
+        return 'No'
     
 def get_commits(data, num_commits):
     if num_commits == '': #-- Si el usuario no ha introducido nada manualmente, lo analizamos

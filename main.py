@@ -13,7 +13,7 @@ if key != "":
 else:
     g = Github()
 #repo_path = "PyGithub/PyGithub"
-repo_path = "ivanmiguelmolinero/TFG"
+repo_path = "ivanmiguelmolinero/Practica-Examen"
 
 try:
     # Introducimos la dirección del repo
@@ -45,7 +45,11 @@ try:
     print("¿Pertenece a una organización?", repo.organization)
     #print("Login: ", organizacion.login)
 
+    has_dld = repo.has_downloads
     downloads = repo.get_downloads()
+    print("DESCARGAS: ", has_dld, downloads.totalCount)
+
+    licencia = repo.get_license()
 
     print("Número de suscriptores: ", repo.subscribers_count)
     fecha_d = fecha.date()

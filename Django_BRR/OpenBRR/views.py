@@ -4,7 +4,7 @@ from datetime import datetime
 from github.GithubException import RateLimitExceededException
 from .models import ModelRepo
 from .forms import RepoGithub
-from .analize_repo import get_repository, get_language, get_license, get_commits, get_wiki, get_forks, get_subscribers, get_organization
+from .analize_repo import get_repository, get_language, get_licencia, get_commits, get_wiki, get_forks, get_subscribers, get_organization
 
 # Create your views here.
 
@@ -20,11 +20,12 @@ def post_main(request):
 def post_repo(request):
     if request.method == 'GET':
         posts = {}
+        posts_sec = {}
         try:
+            # Obtenemos el repositorio introducido por el usuario
             repo = get_repository(request.GET['text'])
-            #posts['languages'] = str(get_language(request.GET['text']))
+            # PESTAÑA DE COMUNIDAD
             posts['languages'] = list(repo.get_languages().keys())
-            #posts['license'] = get_license((request.GET['text']), request.GET['license'])
             posts['commits'] = repo.get_commits().totalCount
             posts['wiki'] = repo.has_wiki
             posts['forks'] = repo.forks_count
@@ -36,7 +37,14 @@ def post_repo(request):
             day = to_valid_format(now.day)
             month = to_valid_format(now.month)
             now = (str(now.year) + '-' + month + '-' + day)
-            return render(request, 'OpenBRR/repo_prueba.html', {'post': posts, 'date': fecha_update, 'now': now})
+
+            # PESTAÑA DE SEGURIDAD
+            posts_sec['license'] = get_licencia(repo)
+            posts_sec['viewers'] = repo.watchers_count
+
+            return render(request, 'OpenBRR/repo_prueba.html', 
+                        {'post': posts, 'date': fecha_update, 'now': now,
+                        'post_sec': posts_sec})
         except RateLimitExceededException:
             posts['error'] = ('Error: Se ha excedido el número de peticiones a GitHub. Intentelo de nuevo más tarde.')
             return render(request, 'OpenBRR/repo_prueba.html', {'post': posts})
