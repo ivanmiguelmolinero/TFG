@@ -10,3 +10,8 @@ Seguridad:
 	- Tiene descargas ¿Sí o no? ¿Cuántas? (repo.has_downloads)(repo.downloads().totalCount())
 	-  ¿Tiene algún problema abierto? ¿Sí o no? ¿Cuántos?
 	- Veces visto (repo.watchers_count)
+
+Funcionalidad:
+	- Tamaño (repo.size) (lo da en Kb)
+	- ¿Es una plantilla? (repo.is_template)
+	- ¿Tiene proyectos asociados? (repo.has_projects)

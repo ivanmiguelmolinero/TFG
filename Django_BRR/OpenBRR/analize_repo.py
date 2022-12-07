@@ -47,3 +47,21 @@ def get_organization(repo):
 def get_subscribers(data):
     repo = get_repository(data)
     return repo.subscribers_count
+
+def get_downloads(repo):
+    if repo.has_downloads:
+        return 'Sí'
+    else:
+        return 'No'
+
+def get_template(repo):
+    if repo.is_template:
+        return 'Sí'
+    else:
+        return 'No'
+
+def get_projects(repo):
+    if repo.has_projects:
+        return 'Sí'
+    else:
+        return 'No'

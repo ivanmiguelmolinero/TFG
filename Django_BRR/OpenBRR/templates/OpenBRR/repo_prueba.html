@@ -11,6 +11,7 @@
     <p id="botones">
         <button id="mostrar-comunidad">Mostrar pestaña de comunidad</button>
         <button id="mostrar-seguridad">Mostrar pestaña de seguridad</button>
+        <button id="mostrar-funcionalidad">Mostrar pestaña de funcionalidad</button>
     </p>
     <div id="content-community">
         <h1>COMUNIDAD:</h1>
@@ -32,7 +33,7 @@
             {% elif key == 'organization' %}
                 <p>¿Pertenece a una organización?<br>
                 {% if value == 'None' %}
-                    <input type="radio" value="Sí" name="organization"> Sí  <input type="text" value="Nombre de la organización">
+                    <input type="radio" value="Sí" name="organization"> Sí  <input type="text" placeholder="Nombre de la organización">
                     <input type="radio" value="No" name="organization" checked> No<br></p>
                 {% else %}
                     <input type="radio" value="Sí" name="organization" checked> Sí <input type="text" value="{{ value }}">
@@ -52,12 +53,48 @@
         {% for key, value in post_sec.items %}
             {% if key == 'license' %}
                     {% if value == 'Sí' %}
-                    <p>Licencia: <input type="radio" value="Sí" name="license" checked> Sí <input type="radio" value="No" name="license"> No</p><br>
+                        <p>Licencia: <input type="radio" value="Sí" name="license" checked> Sí <input type="radio" value="No" name="license"> No</p><br>
                     {% else %}
-                    <p>Licencia: <input type="radio" value="Sí" name="license"> Sí <input type="radio" value="No" name="license" checked> No</p><br>
+                        <p>Licencia: <input type="radio" value="Sí" name="license"> Sí <input type="radio" value="No" name="license" checked> No</p><br>
                     {% endif %}
             {% elif key == 'viewers' %}
                 <p>Personas que han visto este repositorio: <input type="text" value="{{ value }}"><br></p>
+            {% elif key == 'downloads' %}
+                {% if value == 'Sí' %}
+                    <p>¿Tiene descargas?: <input type="radio" value="Sí" name="downloads" checked> Sí <input type="radio" value="No" name="downloads"> No</p><br>
+                {% else %}
+                    <p>¿Tiene descargas?: <input type="radio" value="Sí" name="downloads"> Sí <input type="radio" value="No" name="downloads" checked> No</p><br>
+                {% endif %}
+            {% elif key == 'issues' %}
+                <p>¿Tiene problemas abiertos?<br>
+                    {% if value == 'No' %}
+                        <input type="radio" value="Sí" name="issues"> Sí  <input type="text" placeholder="Nombre de la organización">
+                        <input type="radio" value="No" name="issues" checked> No<br></p>
+                    {% else %}
+                        <input type="radio" value="Sí" name="issues" checked> Sí <input type="text" value="{{ issues }}">
+                        <input type="radio" value="No" name="issues"> No<br></p>
+                    {% endif %}
+            {% endif %}
+        {% endfor %}
+    </div>
+
+    <div id="content-funcionality">
+        <h1>FUNCIONALIDAD:</h1>
+        {% for key, value in post_func.items %}
+            {% if key == 'size' %}
+                <p>Tamaño: <input type="text" name="size" value="{{ value }}">KB</p>
+            {% elif key == 'template' %}
+                {% if value == 'Sí' %}
+                    <p>¿Es una plantilla?:<input type="radio" value="Sí" name="template" checked> Sí <input type="radio" value="No" name="template"> No</p><br>
+                {% else %}
+                    <p>¿Es una plantilla?:<input type="radio" value="Sí" name="template"> Sí <input type="radio" value="No" name="template" checked> No</p><br>
+                {% endif %}
+            {% elif key == 'projects' %}
+                {% if value == 'Sí' %}
+                    <p>¿Tiene proyectos asociados?: <input type="radio" value="Sí" name="projects" checked> Sí <input type="radio" value="No" name="projects"> No</p><br>
+                {% else %}
+                    <p>¿Tiene proyectos asociados?: <input type="radio" value="Sí" name="projects"> Sí <input type="radio" value="No" name="projects" checked> No</p><br>
+                {% endif %}
             {% endif %}
         {% endfor %}
     </div>

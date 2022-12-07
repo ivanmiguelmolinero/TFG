@@ -3,20 +3,26 @@ function main () {
     var community = document.getElementById("content-community"); //-- Bloque de contenido de comunidad de la página
     var text_community = community.innerHTML; //-- Texto que contiene el bloque
     community.innerHTML = ""; //-- Lo ocultamos para que al principio no se muestre
-    console.log(text_community);
     var boton_comunidad = document.getElementById("mostrar-comunidad"); //-- Botón para desplegar u ocultar los datos
 
     //-- Variables del bloque de seguridad
     var security = document.getElementById("content-security");
     var text_security = security.innerHTML;
     security.innerHTML = "";
-    console.log(text_security);
     var boton_seguridad = document.getElementById("mostrar-seguridad");
+
+    //-- Variables del bloque de seguridad
+    var funcionality = document.getElementById("content-funcionality");
+    var text_funcionality = funcionality.innerHTML;
+    funcionality.innerHTML = "";
+    console.log(text_funcionality);
+    var boton_funcionalidad = document.getElementById("mostrar-funcionalidad");
 
     
 
     var mostrando_com = false; //-- Booleano para controlar si se están mostrando los datos de comunidad
     var mostrando_sec = false; //-- Booleano para controlar si se están mostrando los datos de seguridad
+    var mostrando_func = false; //-- Booleano para controlar si se están mostrando los datos de funcionalidad
 
     boton_comunidad.onclick = () => {
         if (mostrando_com) { //-- Si se están mostrando los datos...
@@ -39,6 +45,18 @@ function main () {
             security.innerHTML = text_security; //-- ...los desplegamos
             boton_seguridad.innerHTML = "Ocultar pestaña de seguridad";
             mostrando_sec = true; //-- Cambiamos el booleano porque ahora lo estamos mostrando
+        }
+    }
+
+    boton_funcionalidad.onclick = () => {
+        if (mostrando_func) { //-- Si se están mostrando los datos...
+            funcionality.innerHTML = ""; //-- ...los ocultamos
+            boton_funcionalidad.innerHTML = "Mostrar pestaña de funcionalidad";
+            mostrando_func = false; //-- Cambiamos el booleano porque ya no lo estamos mostrando
+        } else { //-- Si no se están mostrando...
+            funcionality.innerHTML = text_funcionality; //-- ...los desplegamos
+            boton_funcionalidad.innerHTML = "Ocultar pestaña de funcionaldidad";
+            mostrando_func = true; //-- Cambiamos el booleano porque ahora lo estamos mostrando
         }
     }
 }

@@ -4,7 +4,7 @@ from datetime import datetime
 from github.GithubException import RateLimitExceededException
 from .models import ModelRepo
 from .forms import RepoGithub
-from .analize_repo import get_repository, get_language, get_licencia, get_commits, get_wiki, get_forks, get_subscribers, get_organization
+from .analize_repo import get_repository, get_downloads, get_licencia, get_template, get_projects, get_forks, get_subscribers, get_organization
 
 # Create your views here.
 
@@ -21,6 +21,7 @@ def post_repo(request):
     if request.method == 'GET':
         posts = {}
         posts_sec = {}
+        posts_func = {}
         try:
             # Obtenemos el repositorio introducido por el usuario
             repo = get_repository(request.GET['text'])
@@ -31,7 +32,9 @@ def post_repo(request):
             posts['forks'] = repo.forks_count
             posts['subscribers'] = repo.subscribers_count
             posts['organization'] = str(get_organization(repo))
-            fecha_update = (str(repo.pushed_at.date().year) + '-' + str(repo.pushed_at.date().month) + '-' + str(repo.pushed_at.date().day))
+            fecha_update = (str(repo.pushed_at.date().year) + '-' + 
+                            to_valid_format(repo.pushed_at.date().month) + '-'
+                            + to_valid_format(repo.pushed_at.date().day))
             posts['lastUpdate'] = repo.pushed_at.date()
             now = datetime.now()
             day = to_valid_format(now.day)
@@ -41,10 +44,22 @@ def post_repo(request):
             # PESTAÑA DE SEGURIDAD
             posts_sec['license'] = get_licencia(repo)
             posts_sec['viewers'] = repo.watchers_count
+            posts_sec['downloads'] = get_downloads(repo)
+            if repo.has_issues: #-- Si el repo tiene problemas abiertos, obtengo su cantidad
+                posts_sec['issues'] = 'Sí'
+                issues_count = repo.open_issues_count
+            else:
+                posts_sec['issues'] = 'No'
 
+            
+            # PESTAÑA DE FUNCIONALIDAD
+            posts_func['size'] = repo.size
+            posts_func['template'] = get_template(repo)
+            posts_func['projects'] = get_projects(repo)
             return render(request, 'OpenBRR/repo_prueba.html', 
                         {'post': posts, 'date': fecha_update, 'now': now,
-                        'post_sec': posts_sec})
+                        'post_sec': posts_sec, 'issues': issues_count,
+                        'post_func': posts_func})
         except RateLimitExceededException:
             posts['error'] = ('Error: Se ha excedido el número de peticiones a GitHub. Intentelo de nuevo más tarde.')
             return render(request, 'OpenBRR/repo_prueba.html', {'post': posts})

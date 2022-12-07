@@ -13,7 +13,7 @@ if key != "":
 else:
     g = Github()
 #repo_path = "PyGithub/PyGithub"
-repo_path = "ivanmiguelmolinero/Practica-Examen"
+repo_path = "PyGithub/PyGithub"
 
 try:
     # Introducimos la dirección del repo
@@ -55,5 +55,8 @@ try:
     fecha_d = fecha.date()
     fecha_h = fecha.ctime()
     print("p")
+    stats = repo.get_stats_code_frequency
+    work = repo.get_workflow()
+    print(work)
 except RateLimitExceededException:
     print("Número máximo de peticiones alcanzadas. Inténtelo de nuevo más tarde.")
