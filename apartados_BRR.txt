@@ -15,3 +15,13 @@ Funcionalidad:
 	- Tamaño (repo.size) (lo da en Kb)
 	- ¿Es una plantilla? (repo.is_template)
 	- ¿Tiene proyectos asociados? (repo.has_projects)
+
+Soporte:
+	- ¿Tiene wiki? (repo.has_wiki)
+	- ¿Tiene homepage? (repo.homepage)
+
+Calidad:
+	- Seguidores del dueño del repositorio (repo.owner.followers)
+	- Número de repositorios que tiene (repo.owner.public_repos)
+	- Seguidores de la organización (repo.organization.followers)
+	- Número de repositorios de la organización (repo.organization.public_repos)

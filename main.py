@@ -1,5 +1,13 @@
 from github import Github
 from github.GithubException import RateLimitExceededException
+from datetime import datetime
+
+
+def to_valid_format(date):
+    if (date < 10):
+        return '0' + str(date)
+    else:
+        return str(date)
 
 # Introducimos la token del usuario
 print("Key (si no la tiene pulse INTRO):")
@@ -13,7 +21,7 @@ if key != "":
 else:
     g = Github()
 #repo_path = "PyGithub/PyGithub"
-repo_path = "PyGithub/PyGithub"
+repo_path = "ivanmiguelmolinero/Scappe-Room"
 
 try:
     # Introducimos la dirección del repo
@@ -52,8 +60,12 @@ try:
     licencia = repo.get_license()
 
     print("Número de suscriptores: ", repo.subscribers_count)
-    fecha_d = fecha.date()
+    fecha_d = str(fecha.date())
     fecha_h = fecha.ctime()
+    now = str(datetime.now())
+    day = to_valid_format(repo.pushed_at.day)
+    month = to_valid_format(repo.pushed_at.month)
+    now_day = to_valid_format(datetime.now().day)
     print("p")
     stats = repo.get_stats_code_frequency
     work = repo.get_workflow()

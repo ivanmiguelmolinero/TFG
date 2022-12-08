@@ -29,10 +29,11 @@ def get_commits(data, num_commits):
     else: #-- Si no devolvemos lo que ha introducido
         return num_commits
 
-def get_wiki(data):
-    repo_path = data
-    repo = g.get_repo(repo_path)
-    return repo.has_wiki
+def get_wiki(repo):
+    if repo.has_wiki:
+        return 'Sí'
+    else:
+        return 'No'
 
 def get_forks(data):
     repo = get_repository(data)

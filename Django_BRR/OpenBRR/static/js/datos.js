@@ -15,14 +15,29 @@ function main () {
     var funcionality = document.getElementById("content-funcionality");
     var text_funcionality = funcionality.innerHTML;
     funcionality.innerHTML = "";
-    console.log(text_funcionality);
     var boton_funcionalidad = document.getElementById("mostrar-funcionalidad");
+
+    //-- Variables del bloque de soporte
+    var support = document.getElementById("content-support");
+    var text_support = support.innerHTML;
+    support.innerHTML = "";
+    var boton_soporte = document.getElementById("mostrar-soporte");
+
+    //-- Variables del bloque de calidad
+    var quality = document.getElementById("content-quality");
+    var text_quality = quality.innerHTML;
+    quality.innerHTML = "";
+    console.log(text_quality);
+    var boton_calidad = document.getElementById("mostrar-calidad");
+
 
     
 
     var mostrando_com = false; //-- Booleano para controlar si se están mostrando los datos de comunidad
     var mostrando_sec = false; //-- Booleano para controlar si se están mostrando los datos de seguridad
     var mostrando_func = false; //-- Booleano para controlar si se están mostrando los datos de funcionalidad
+    var mostrando_supp = false; //-- Booleano para controlar si se están mostrando los datos de soporte
+    var mostrando_qual = false; //-- Booleano para controlar si se están mostrando los datos de calidad
 
     boton_comunidad.onclick = () => {
         if (mostrando_com) { //-- Si se están mostrando los datos...
@@ -57,6 +72,30 @@ function main () {
             funcionality.innerHTML = text_funcionality; //-- ...los desplegamos
             boton_funcionalidad.innerHTML = "Ocultar pestaña de funcionaldidad";
             mostrando_func = true; //-- Cambiamos el booleano porque ahora lo estamos mostrando
+        }
+    }
+
+    boton_soporte.onclick = () => {
+        if (mostrando_supp) { //-- Si se están mostrando los datos...
+            support.innerHTML = ""; //-- ...los ocultamos
+            boton_soporte.innerHTML = "Mostrar pestaña de soporte";
+            mostrando_supp = false; //-- Cambiamos el booleano porque ya no lo estamos mostrando
+        } else { //-- Si no se están mostrando...
+            support.innerHTML = text_support; //-- ...los desplegamos
+            boton_soporte.innerHTML = "Ocultar pestaña de soporte";
+            mostrando_supp = true; //-- Cambiamos el booleano porque ahora lo estamos mostrando
+        }
+    }
+
+    boton_calidad.onclick = () => {
+        if (mostrando_qual) { //-- Si se están mostrando los datos...
+            quality.innerHTML = ""; //-- ...los ocultamos
+            boton_calidad.innerHTML = "Mostrar pestaña de calidad";
+            mostrando_qual = false; //-- Cambiamos el booleano porque ya no lo estamos mostrando
+        } else { //-- Si no se están mostrando...
+            quality.innerHTML = text_quality; //-- ...los desplegamos
+            boton_calidad.innerHTML = "Ocultar pestaña de calidad";
+            mostrando_qual = true; //-- Cambiamos el booleano porque ahora lo estamos mostrando
         }
     }
 }

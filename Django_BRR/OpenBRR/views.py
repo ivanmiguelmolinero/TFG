@@ -4,7 +4,7 @@ from datetime import datetime
 from github.GithubException import RateLimitExceededException
 from .models import ModelRepo
 from .forms import RepoGithub
-from .analize_repo import get_repository, get_downloads, get_licencia, get_template, get_projects, get_forks, get_subscribers, get_organization
+from .analize_repo import get_repository, get_downloads, get_licencia, get_template, get_projects, get_wiki, get_subscribers, get_organization
 
 # Create your views here.
 
@@ -22,6 +22,8 @@ def post_repo(request):
         posts = {}
         posts_sec = {}
         posts_func = {}
+        posts_supp = {}
+        posts_qual = {}
         try:
             # Obtenemos el repositorio introducido por el usuario
             repo = get_repository(request.GET['text'])
@@ -32,10 +34,10 @@ def post_repo(request):
             posts['forks'] = repo.forks_count
             posts['subscribers'] = repo.subscribers_count
             posts['organization'] = str(get_organization(repo))
-            fecha_update = (str(repo.pushed_at.date().year) + '-' + 
-                            to_valid_format(repo.pushed_at.date().month) + '-'
-                            + to_valid_format(repo.pushed_at.date().day))
-            posts['lastUpdate'] = repo.pushed_at.date()
+            fecha_update = (str(repo.pushed_at.year) + '-' + 
+                            to_valid_format(repo.pushed_at.month) + '-' +
+                            to_valid_format(repo.pushed_at.day))
+            posts['lastUpdate'] = fecha_update
             now = datetime.now()
             day = to_valid_format(now.day)
             month = to_valid_format(now.month)
@@ -45,7 +47,7 @@ def post_repo(request):
             posts_sec['license'] = get_licencia(repo)
             posts_sec['viewers'] = repo.watchers_count
             posts_sec['downloads'] = get_downloads(repo)
-            if repo.has_issues: #-- Si el repo tiene problemas abiertos, obtengo su cantidad
+            if repo.open_issues_count != '0': #-- Si el repo tiene problemas abiertos, obtengo su cantidad
                 posts_sec['issues'] = 'Sí'
                 issues_count = repo.open_issues_count
             else:
@@ -56,16 +58,32 @@ def post_repo(request):
             posts_func['size'] = repo.size
             posts_func['template'] = get_template(repo)
             posts_func['projects'] = get_projects(repo)
+
+            # PESTAÑA DE SOPORTE
+            posts_supp['wiki'] = get_wiki(repo)
+            posts_supp['homepage'] = str(repo.homepage)
+
+            # PESTAÑA DE CALIDAD
+            posts_qual['followers_owner'] = repo.owner.followers
+            posts_qual['n_repos'] = repo.owner.public_repos
+            posts_qual['followers_org'] = repo.organization.followers
+            posts_qual['n_repos_org'] = repo.organization.public_repos
             return render(request, 'OpenBRR/repo_prueba.html', 
                         {'post': posts, 'date': fecha_update, 'now': now,
                         'post_sec': posts_sec, 'issues': issues_count,
-                        'post_func': posts_func})
+                        'post_func': posts_func,
+                        'post_supp': posts_supp,
+                        'post_qual': posts_qual})
         except RateLimitExceededException:
             posts['error'] = ('Error: Se ha excedido el número de peticiones a GitHub. Intentelo de nuevo más tarde.')
             return render(request, 'OpenBRR/repo_prueba.html', {'post': posts})
         except Exception:
-            posts['error'] = ("Error: " + str(Exception))
-            return render(request, 'OpenBRR/repo_prueba.html', {'post': posts})
+            posts['error'] = ("Error: " + str(Exception.args))
+            return render(request, 'OpenBRR/repo_prueba.html', {'post': posts, 'now': now,
+                        'post_sec': posts_sec, 'issues': issues_count,
+                        'post_func': posts_func,
+                        'post_supp': posts_supp,
+                        'post_qual': posts_qual})
     else:
         return render(request, 'OpenBRR/main.html', {})
 
