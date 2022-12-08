@@ -19,6 +19,8 @@ def post_main(request):
 
 def post_repo(request):
     if request.method == 'GET':
+        # Inicializo variables de importancia
+        issues_count = 0
         posts = {}
         posts_sec = {}
         posts_func = {}
@@ -47,7 +49,7 @@ def post_repo(request):
             posts_sec['license'] = get_licencia(repo)
             posts_sec['viewers'] = repo.watchers_count
             posts_sec['downloads'] = get_downloads(repo)
-            if repo.open_issues_count != '0': #-- Si el repo tiene problemas abiertos, obtengo su cantidad
+            if repo.open_issues_count != 0: #-- Si el repo tiene problemas abiertos, obtengo su cantidad
                 posts_sec['issues'] = 'Sí'
                 issues_count = repo.open_issues_count
             else:
@@ -66,8 +68,12 @@ def post_repo(request):
             # PESTAÑA DE CALIDAD
             posts_qual['followers_owner'] = repo.owner.followers
             posts_qual['n_repos'] = repo.owner.public_repos
-            posts_qual['followers_org'] = repo.organization.followers
-            posts_qual['n_repos_org'] = repo.organization.public_repos
+            if posts['organization'] != 'None': #-- Si pertenece a una organización, sacamos sus datos
+                posts_qual['followers_org'] = str(repo.organization.followers)
+                posts_qual['n_repos_org'] = repo.organization.public_repos
+            else: #-- Si no, ponemos sus contadores a 0
+                posts_qual['followers_org'] = '0'
+                posts_qual['n_repos_org'] = '0'
             return render(request, 'OpenBRR/repo_prueba.html', 
                         {'post': posts, 'date': fecha_update, 'now': now,
                         'post_sec': posts_sec, 'issues': issues_count,
