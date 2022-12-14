@@ -66,3 +66,10 @@ def get_projects(repo):
         return 'Sí'
     else:
         return 'No'
+
+def get_readme(repo):
+    try:
+        repo.get_readme()
+        return 'Sí'
+    except:
+        return 'No'

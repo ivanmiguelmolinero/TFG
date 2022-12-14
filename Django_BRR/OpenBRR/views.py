@@ -4,7 +4,7 @@ from datetime import datetime
 from github.GithubException import RateLimitExceededException
 from .models import ModelRepo
 from .forms import RepoGithub
-from .analize_repo import get_repository, get_downloads, get_licencia, get_template, get_projects, get_wiki, get_subscribers, get_organization
+from .analize_repo import get_repository, get_downloads, get_licencia, get_template, get_projects, get_wiki, get_readme, get_organization
 
 # Create your views here.
 
@@ -26,6 +26,7 @@ def post_repo(request):
         posts_func = {}
         posts_supp = {}
         posts_qual = {}
+        posts_usab = {}
         try:
             # Obtenemos el repositorio introducido por el usuario
             repo = get_repository(request.GET['text'])
@@ -74,12 +75,17 @@ def post_repo(request):
             else: #-- Si no, ponemos sus contadores a 0
                 posts_qual['followers_org'] = '0'
                 posts_qual['n_repos_org'] = '0'
+
+            # PESTAÑA DE USABILIDAD
+            posts_usab['num_languages'] = len(list(repo.get_languages().keys()))
+            posts_usab['readme'] = get_readme(repo)
             return render(request, 'OpenBRR/repo_prueba.html', 
                         {'post': posts, 'date': fecha_update, 'now': now,
                         'post_sec': posts_sec, 'issues': issues_count,
                         'post_func': posts_func,
                         'post_supp': posts_supp,
-                        'post_qual': posts_qual})
+                        'post_qual': posts_qual,
+                        'post_usab': posts_usab})
         except RateLimitExceededException:
             posts['error'] = ('Error: Se ha excedido el número de peticiones a GitHub. Intentelo de nuevo más tarde.')
             return render(request, 'OpenBRR/repo_prueba.html', {'post': posts})
@@ -89,7 +95,8 @@ def post_repo(request):
                         'post_sec': posts_sec, 'issues': issues_count,
                         'post_func': posts_func,
                         'post_supp': posts_supp,
-                        'post_qual': posts_qual})
+                        'post_qual': posts_qual,
+                        'post_usab': posts_usab})
     else:
         return render(request, 'OpenBRR/main.html', {})
 

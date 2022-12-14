@@ -25,3 +25,7 @@ Calidad:
 	- Número de repositorios que tiene (repo.owner.public_repos)
 	- Seguidores de la organización (repo.organization.followers)
 	- Número de repositorios de la organización (repo.organization.public_repos)
+
+Usabilidad:
+	- Lenguajes utilizados (list(repo.get_languages().keys()))
+	- Tiene readme (repo.get_readme())

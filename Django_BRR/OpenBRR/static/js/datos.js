@@ -27,8 +27,14 @@ function main () {
     var quality = document.getElementById("content-quality");
     var text_quality = quality.innerHTML;
     quality.innerHTML = "";
-    console.log(text_quality);
     var boton_calidad = document.getElementById("mostrar-calidad");
+
+    //-- Variables del bloque de usabilidad
+    var usability = document.getElementById("content-usability");
+    var text_usability = usability.innerHTML;
+    usability.innerHTML = "";
+    console.log(text_usability);
+    var boton_usabilidad = document.getElementById("mostrar-usabilidad");
 
 
     
@@ -38,6 +44,7 @@ function main () {
     var mostrando_func = false; //-- Booleano para controlar si se están mostrando los datos de funcionalidad
     var mostrando_supp = false; //-- Booleano para controlar si se están mostrando los datos de soporte
     var mostrando_qual = false; //-- Booleano para controlar si se están mostrando los datos de calidad
+    var mostrando_usab = false; //-- Booleano para controlar si se están mostrando los datos de uabilidad
 
     boton_comunidad.onclick = () => {
         if (mostrando_com) { //-- Si se están mostrando los datos...
@@ -96,6 +103,18 @@ function main () {
             quality.innerHTML = text_quality; //-- ...los desplegamos
             boton_calidad.innerHTML = "Ocultar pestaña de calidad";
             mostrando_qual = true; //-- Cambiamos el booleano porque ahora lo estamos mostrando
+        }
+    }
+
+    boton_usabilidad.onclick = () => {
+        if (mostrando_usab) { //-- Si se están mostrando los datos...
+            usability.innerHTML = ""; //-- ...los ocultamos
+            boton_usabilidad.innerHTML = "Mostrar pestaña de usabilidad";
+            mostrando_usab = false; //-- Cambiamos el booleano porque ya no lo estamos mostrando
+        } else { //-- Si no se están mostrando...
+            usability.innerHTML = text_usability; //-- ...los desplegamos
+            boton_usabilidad.innerHTML = "Ocultar pestaña de usabilidad";
+            mostrando_usab = true; //-- Cambiamos el booleano porque ahora lo estamos mostrando
         }
     }
 }

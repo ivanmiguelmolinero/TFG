@@ -21,7 +21,7 @@ if key != "":
 else:
     g = Github()
 #repo_path = "PyGithub/PyGithub"
-repo_path = "ivanmiguelmolinero/Scappe-Room"
+repo_path = "ivanmiguelmolinero/Practica-Examen"
 
 try:
     # Introducimos la dirección del repo
@@ -56,7 +56,7 @@ try:
     has_dld = repo.has_downloads
     downloads = repo.get_downloads()
     print("DESCARGAS: ", has_dld, downloads.totalCount)
-
+    readme = repo.get_readme()
     licencia = repo.get_license()
 
     print("Número de suscriptores: ", repo.subscribers_count)
@@ -66,8 +66,9 @@ try:
     day = to_valid_format(repo.pushed_at.day)
     month = to_valid_format(repo.pushed_at.month)
     now_day = to_valid_format(datetime.now().day)
+    num_leng = len(list(repo.get_languages().keys()))
     print("p")
-    stats = repo.get_stats_code_frequency
+    stats = repo.get_stats_code_frequency()
     work = repo.get_workflow()
     print(work)
 except RateLimitExceededException:

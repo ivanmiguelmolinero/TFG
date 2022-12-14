@@ -14,6 +14,7 @@
         <button id="mostrar-funcionalidad">Mostrar pestaña de funcionalidad</button>
         <button id="mostrar-soporte">Mostrar pestaña de soporte</button>
         <button id="mostrar-calidad">Mostrar pestaña de calidad</button>
+        <button id="mostrar-usabilidad">Mostrar pestaña de usabilidad</button>
     </p>
     <div id="content-community">
         <h1>COMUNIDAD:</h1>
@@ -141,6 +142,21 @@
                 <p>Número de repositorios de la organización: <input type="text" name="n_repos_org" value="{{ value }}"></p>
             {% else %}
                 <p>{{ value }}</p>
+            {% endif %}
+        {% endfor %}
+    </div>
+
+    <div id="content-usability">
+        <h1>USABILIDAD:</h1>
+        {% for key, value in post_usab.items %}
+            {% if key == 'num_languages' %}
+                <p>Número de lenguajes utilizados: <input type="number" id="num_languages" min="0" max="10" value="{{ value }}"></p>
+            {% elif key == 'readme' %}
+                {% if value == 'Sí' %}
+                    <p>¿Tiene README?:<input type="radio" value="Sí" name="readme" checked> Sí <input type="radio" value="No" name="readme"> No</p><br>
+                {% else %}
+                    <p>¿Tiene README?:<input type="radio" value="Sí" name="readme"> Sí <input type="radio" value="No" name="readme" checked> No</p><br>
+                {% endif %}
             {% endif %}
         {% endfor %}
     </div>
