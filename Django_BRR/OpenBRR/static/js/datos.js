@@ -33,8 +33,14 @@ function main () {
     var usability = document.getElementById("content-usability");
     var text_usability = usability.innerHTML;
     usability.innerHTML = "";
-    console.log(text_usability);
     var boton_usabilidad = document.getElementById("mostrar-usabilidad");
+
+    //-- Variables del bloque de adopción
+    var adoption = document.getElementById("content-adoption");
+    var text_adoption = adoption.innerHTML;
+    adoption.innerHTML = "";
+    console.log(text_adoption);
+    var boton_adoption = document.getElementById("mostrar-adopcion");
 
 
     
@@ -45,6 +51,7 @@ function main () {
     var mostrando_supp = false; //-- Booleano para controlar si se están mostrando los datos de soporte
     var mostrando_qual = false; //-- Booleano para controlar si se están mostrando los datos de calidad
     var mostrando_usab = false; //-- Booleano para controlar si se están mostrando los datos de uabilidad
+    var mostrando_adop = false; //-- Booleano para controlar si se están mostrando los datos de adopción
 
     boton_comunidad.onclick = () => {
         if (mostrando_com) { //-- Si se están mostrando los datos...
@@ -115,6 +122,18 @@ function main () {
             usability.innerHTML = text_usability; //-- ...los desplegamos
             boton_usabilidad.innerHTML = "Ocultar pestaña de usabilidad";
             mostrando_usab = true; //-- Cambiamos el booleano porque ahora lo estamos mostrando
+        }
+    }
+
+    boton_adoption.onclick = () => {
+        if (mostrando_adop) { //-- Si se están mostrando los datos...
+            adoption.innerHTML = ""; //-- ...los ocultamos
+            boton_adoption.innerHTML = "Mostrar pestaña de adopción";
+            mostrando_adop = false; //-- Cambiamos el booleano porque ya no lo estamos mostrando
+        } else { //-- Si no se están mostrando...
+            adoption.innerHTML = text_adoption; //-- ...los desplegamos
+            boton_adoption.innerHTML = "Ocultar pestaña de adopción";
+            mostrando_adop = true; //-- Cambiamos el booleano porque ahora lo estamos mostrando
         }
     }
 }

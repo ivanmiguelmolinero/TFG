@@ -21,7 +21,7 @@ if key != "":
 else:
     g = Github()
 #repo_path = "PyGithub/PyGithub"
-repo_path = "ivanmiguelmolinero/Practica-Examen"
+repo_path = "moodle/moodle"
 
 try:
     # Introducimos la dirección del repo
@@ -55,9 +55,12 @@ try:
 
     has_dld = repo.has_downloads
     downloads = repo.get_downloads()
+    #download = repo.get_download()
+    #deployment = repo.get_deployment()
+    deployments = repo.get_deployments()
     print("DESCARGAS: ", has_dld, downloads.totalCount)
     readme = repo.get_readme()
-    licencia = repo.get_license()
+    #licencia = repo.get_license()
 
     print("Número de suscriptores: ", repo.subscribers_count)
     fecha_d = str(fecha.date())
@@ -67,6 +70,9 @@ try:
     month = to_valid_format(repo.pushed_at.month)
     now_day = to_valid_format(datetime.now().day)
     num_leng = len(list(repo.get_languages().keys()))
+    vulne = repo.get_vulnerability_alert()
+    work = repo.get_workflows()
+    traffic = repo.get_views_traffic()
     print("p")
     stats = repo.get_stats_code_frequency()
     work = repo.get_workflow()

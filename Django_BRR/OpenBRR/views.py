@@ -27,6 +27,7 @@ def post_repo(request):
         posts_supp = {}
         posts_qual = {}
         posts_usab = {}
+        posts_adop = {}
         try:
             # Obtenemos el repositorio introducido por el usuario
             repo = get_repository(request.GET['text'])
@@ -49,7 +50,7 @@ def post_repo(request):
             # PESTAÑA DE SEGURIDAD
             posts_sec['license'] = get_licencia(repo)
             posts_sec['viewers'] = repo.watchers_count
-            posts_sec['downloads'] = get_downloads(repo)
+            posts_sec['vulnerability'] = repo.get_vulnerability_alert
             if repo.open_issues_count != 0: #-- Si el repo tiene problemas abiertos, obtengo su cantidad
                 posts_sec['issues'] = 'Sí'
                 issues_count = repo.open_issues_count
@@ -79,13 +80,17 @@ def post_repo(request):
             # PESTAÑA DE USABILIDAD
             posts_usab['num_languages'] = len(list(repo.get_languages().keys()))
             posts_usab['readme'] = get_readme(repo)
+
+            # PESTAÑA DE ADOPCIÓN
+            posts_adop['downloads'] = get_downloads(repo)
             return render(request, 'OpenBRR/repo_prueba.html', 
                         {'post': posts, 'date': fecha_update, 'now': now,
                         'post_sec': posts_sec, 'issues': issues_count,
                         'post_func': posts_func,
                         'post_supp': posts_supp,
                         'post_qual': posts_qual,
-                        'post_usab': posts_usab})
+                        'post_usab': posts_usab,
+                        'post_adop': posts_adop})
         except RateLimitExceededException:
             posts['error'] = ('Error: Se ha excedido el número de peticiones a GitHub. Intentelo de nuevo más tarde.')
             return render(request, 'OpenBRR/repo_prueba.html', {'post': posts})
@@ -96,7 +101,8 @@ def post_repo(request):
                         'post_func': posts_func,
                         'post_supp': posts_supp,
                         'post_qual': posts_qual,
-                        'post_usab': posts_usab})
+                        'post_usab': posts_usab,
+                        'post_adop': posts_adop})
     else:
         return render(request, 'OpenBRR/main.html', {})
 

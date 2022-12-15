@@ -15,6 +15,7 @@
         <button id="mostrar-soporte">Mostrar pestaña de soporte</button>
         <button id="mostrar-calidad">Mostrar pestaña de calidad</button>
         <button id="mostrar-usabilidad">Mostrar pestaña de usabilidad</button>
+        <button id="mostrar-adopcion">Mostrar pestaña de adopción</button>
     </p>
     <div id="content-community">
         <h1>COMUNIDAD:</h1>
@@ -62,12 +63,6 @@
                     {% endif %}
             {% elif key == 'viewers' %}
                 <p>Personas que han visto este repositorio: <input type="text" value="{{ value }}"><br></p>
-            {% elif key == 'downloads' %}
-                {% if value == 'Sí' %}
-                    <p>¿Tiene descargas?: <input type="radio" value="Sí" name="downloads" checked> Sí <input type="radio" value="No" name="downloads"> No</p><br>
-                {% else %}
-                    <p>¿Tiene descargas?: <input type="radio" value="Sí" name="downloads"> Sí <input type="radio" value="No" name="downloads" checked> No</p><br>
-                {% endif %}
             {% elif key == 'issues' %}
                 <p>¿Tiene problemas abiertos?<br>
                     {% if value == 'No' %}
@@ -76,6 +71,12 @@
                     {% else %}
                         <input type="radio" value="Sí" name="issues" checked> Sí <input type="text" value="{{ issues }}">
                         <input type="radio" value="No" name="issues"> No<br></p>
+                    {% endif %}
+            {% elif key == 'vulnerability' %}
+                    {% if value == True %}
+                        <p>¿Tiene vulnerabilidad?: <input type="radio" value="Sí" name="vulnerability" checked> Sí <input type="radio" value="No" name="vulnerability"> No</p><br>
+                    {% else %}
+                        <p>¿Tiene vulnerabilidad?: <input type="radio" value="Sí" name="vulnerability"> Sí <input type="radio" value="No" name="vulnerability" checked> No</p><br>
                     {% endif %}
             {% else %}
                 <p>{{ value }}</p>
@@ -117,9 +118,11 @@
                 {% endif %}
             {% elif key == 'homepage' %}
                 {% if value == 'None' %}
+                    ¿Tiene homepage?:
                     <input type="radio" value="Sí" name="homepage"> Sí  <input type="text" placeholder="URL homepage">
                     <input type="radio" value="No" name="homepage" checked> No<br></p>
                 {% else %}
+                    ¿Tiene homepage?:
                     <input type="radio" value="Sí" name="homepage" checked> Sí <input type="text" value="{{ value }}">
                     <input type="radio" value="No" name="homepage"> No<br></p>
                 {% endif %}
@@ -156,6 +159,19 @@
                     <p>¿Tiene README?:<input type="radio" value="Sí" name="readme" checked> Sí <input type="radio" value="No" name="readme"> No</p><br>
                 {% else %}
                     <p>¿Tiene README?:<input type="radio" value="Sí" name="readme"> Sí <input type="radio" value="No" name="readme" checked> No</p><br>
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+    </div>
+
+    <div id="content-adoption">
+        <h1>ADOPCIÓN:</h1>
+        {% for key, value in post_adop.items %}
+            {% if key == 'downloads' %}
+                {% if value == 'Sí' %}
+                    <p>¿Tiene descargas?: <input type="radio" value="Sí" name="downloads" checked> Sí <input type="radio" value="No" name="downloads"> No</p><br>
+                {% else %}
+                    <p>¿Tiene descargas?: <input type="radio" value="Sí" name="downloads"> Sí <input type="radio" value="No" name="downloads" checked> No</p><br>
                 {% endif %}
             {% endif %}
         {% endfor %}
