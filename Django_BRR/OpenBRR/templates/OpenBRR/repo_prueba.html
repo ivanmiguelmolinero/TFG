@@ -20,20 +20,16 @@
     <div id="content-community">
         <h1>COMUNIDAD:</h1>
         {% for key, value in post.items %}
-            {% if key == 'languages' %}
-                <p>Lenguajes utilizados: <input type="text" value="{{ value }}"><br>
-            {% elif key == 'commits' %}
-                    <p>Número de commits: <input type="text" value="{{ value }}"><br></p>
-            {% elif key == 'wiki' %}
-                {% if value == True %}
-                    <p>¿Tiene wiki?: <input type="radio" value="Sí" name="wiki" checked> Sí <input type="radio" value="No" name="wiki"> No<br></p>
-                {% else %}
-                    <p>¿Tiene wiki?: <input type="radio" value="Sí" name="wiki"> Sí <input type="radio" value="No" name="wiki" checked> No<br></p>
-                {% endif %}
+            {% if key == 'commits' %}
+                    <p>Número de commits: <input type="text" value="{{ value }}">
+                        Valor: <input type="number" name="valor-commits" value=16.6 step=0.1 max="100" id="valor-commits">
+                        <br></p>
             {% elif key == 'forks' %}
-                <p>Número de forks: <input type="text" value="{{ value }}"><br></p>
+                <p>Número de forks: <input type="text" value="{{ value }}">
+                    <input type="number" name="valor-forks" value=16.6 step=0.1 id="valor-forks"><br></p>
             {% elif key == 'subscribers' %}
-                <p>Número de suscriptores: <input type="text" value="{{ value }}"><br></p>
+                <p>Número de suscriptores: <input type="text" value="{{ value }}">
+                    <input type="number" name="valor-suscriptores" value=16.6 step=0.1 id="valor-suscriptores"><br></p>
             {% elif key == 'organization' %}
                 <p>¿Pertenece a una organización?<br>
                 {% if value == 'None' %}
@@ -43,9 +39,11 @@
                     <input type="radio" value="Sí" name="organization" checked> Sí <input type="text" value="{{ value }}">
                     <input type="radio" value="No" name="organization"> No<br></p>
                 {% endif %}
+                <input type="number" name="valor-organización" value=16.6 step=0.1 id="valor-organización">
             {% elif key == 'lastUpdate' %}
                     <p>Última actualización: 
-                        <input type="date" id="start" name="update" value="{{ value }}" min="2001-01-01" max="{{ now }}"></p>
+                        <input type="date" id="start" name="update" value="{{ value }}" min="2001-01-01" max="{{ now }}">
+                        <input type="number" name="valor-actualización" value=16.6 step=0.1 id="valor-actualización"></p>
             {% else %}
                     <p>{{ value }}</p>
             {% endif %}
@@ -61,8 +59,10 @@
                     {% else %}
                         <p>Licencia: <input type="radio" value="Sí" name="license"> Sí <input type="radio" value="No" name="license" checked> No</p><br>
                     {% endif %}
+                    <input type="number" name="valor-licencia" value=16.6 step=0.1 id="valor-licencia">
             {% elif key == 'viewers' %}
-                <p>Personas que han visto este repositorio: <input type="text" value="{{ value }}"><br></p>
+                <p>Personas que han visto este repositorio: <input type="text" value="{{ value }}">
+                    <input type="number" name="valor-viewers" value=16.6 step=0.1 id="valor-viewers"><br></p>
             {% elif key == 'issues' %}
                 <p>¿Tiene problemas abiertos?<br>
                     {% if value == 'No' %}
@@ -72,12 +72,14 @@
                         <input type="radio" value="Sí" name="issues" checked> Sí <input type="text" value="{{ issues }}">
                         <input type="radio" value="No" name="issues"> No<br></p>
                     {% endif %}
+                    <input type="number" name="valor-problemas" value=16.6 step=0.1 id="valor-problemas">
             {% elif key == 'vulnerability' %}
                     {% if value == True %}
                         <p>¿Tiene vulnerabilidad?: <input type="radio" value="Sí" name="vulnerability" checked> Sí <input type="radio" value="No" name="vulnerability"> No</p><br>
                     {% else %}
                         <p>¿Tiene vulnerabilidad?: <input type="radio" value="Sí" name="vulnerability"> Sí <input type="radio" value="No" name="vulnerability" checked> No</p><br>
                     {% endif %}
+                    <input type="number" name="valor-vulnerabilidad" value=16.6 step=0.1 id="valor-vulnerabilidad">
             {% else %}
                 <p>{{ value }}</p>
             {% endif %}
@@ -88,19 +90,22 @@
         <h1>FUNCIONALIDAD:</h1>
         {% for key, value in post_func.items %}
             {% if key == 'size' %}
-                <p>Tamaño: <input type="text" name="size" value="{{ value }}">KB</p>
+                <p>Tamaño: <input type="text" name="size" value="{{ value }}">KB
+                    <input type="number" name="valor-tamaño" value=16.6 step=0.1 id="valor-tamaño"></p>
             {% elif key == 'template' %}
                 {% if value == 'Sí' %}
                     <p>¿Es una plantilla?:<input type="radio" value="Sí" name="template" checked> Sí <input type="radio" value="No" name="template"> No</p><br>
                 {% else %}
                     <p>¿Es una plantilla?:<input type="radio" value="Sí" name="template"> Sí <input type="radio" value="No" name="template" checked> No</p><br>
                 {% endif %}
+                <input type="number" name="valor-plantilla" value=16.6 step=0.1 id="valor-plantilla">
             {% elif key == 'projects' %}
                 {% if value == 'Sí' %}
                     <p>¿Tiene proyectos asociados?: <input type="radio" value="Sí" name="projects" checked> Sí <input type="radio" value="No" name="projects"> No</p><br>
                 {% else %}
                     <p>¿Tiene proyectos asociados?: <input type="radio" value="Sí" name="projects"> Sí <input type="radio" value="No" name="projects" checked> No</p><br>
                 {% endif %}
+                <input type="number" name="valor-proyectos" value=16.6 step=0.1 id="valor-proyectos">
             {% else %}
                 <p>{{ value }}</p>
             {% endif %}
@@ -116,6 +121,7 @@
                 {% else %}
                     <p>¿Tiene wiki?:<input type="radio" value="Sí" name="wiki"> Sí <input type="radio" value="No" name="wiki" checked> No</p><br>
                 {% endif %}
+                <input type="number" name="valor-wiki" value=16.6 step=0.1 id="valor-wiki">
             {% elif key == 'homepage' %}
                 {% if value == 'None' %}
                     ¿Tiene homepage?:
@@ -126,6 +132,7 @@
                     <input type="radio" value="Sí" name="homepage" checked> Sí <input type="text" value="{{ value }}">
                     <input type="radio" value="No" name="homepage"> No<br></p>
                 {% endif %}
+                <input type="number" name="valor-homepage" value=16.6 step=0.1 id="valor-homepage">
             {% else %}
                 <p>{{ value }}</p>
             {% endif %}

@@ -1,5 +1,6 @@
 function main () {
 
+    //-- Variables del bloque de comunidad
     var community = document.getElementById("content-community"); //-- Bloque de contenido de comunidad de la página
     var text_community = community.innerHTML; //-- Texto que contiene el bloque
     community.innerHTML = ""; //-- Lo ocultamos para que al principio no se muestre
@@ -39,10 +40,7 @@ function main () {
     var adoption = document.getElementById("content-adoption");
     var text_adoption = adoption.innerHTML;
     adoption.innerHTML = "";
-    console.log(text_adoption);
     var boton_adoption = document.getElementById("mostrar-adopcion");
-
-
     
 
     var mostrando_com = false; //-- Booleano para controlar si se están mostrando los datos de comunidad
@@ -53,6 +51,7 @@ function main () {
     var mostrando_usab = false; //-- Booleano para controlar si se están mostrando los datos de uabilidad
     var mostrando_adop = false; //-- Booleano para controlar si se están mostrando los datos de adopción
 
+    //-- Botones de las pestañas
     boton_comunidad.onclick = () => {
         if (mostrando_com) { //-- Si se están mostrando los datos...
             community.innerHTML = ""; //-- ...los ocultamos
@@ -61,6 +60,8 @@ function main () {
         } else { //-- Si no se están mostrando...
             community.innerHTML = text_community; //-- ...los desplegamos
             boton_comunidad.innerHTML = "Ocultar pestaña de comunidad";
+            var valor_commits = document.getElementById("valor-commits");
+            console.log(valor_commits.value);
             mostrando_com = true; //-- Cambiamos el booleano porque ahora lo estamos mostrando
         }
     }

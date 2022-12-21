@@ -32,7 +32,6 @@ def post_repo(request):
             # Obtenemos el repositorio introducido por el usuario
             repo = get_repository(request.GET['text'])
             # PESTAÑA DE COMUNIDAD
-            posts['languages'] = list(repo.get_languages().keys())
             posts['commits'] = repo.get_commits().totalCount
             posts['wiki'] = repo.has_wiki
             posts['forks'] = repo.forks_count
