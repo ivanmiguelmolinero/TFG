@@ -164,7 +164,7 @@ function edit_max_value() {
 }
 
 function save_input() {
-    document.getElementById('commits').setAttribute(value,
+    document.getElementById('commits').setAttribute("value",
         document.getElementById('commits').value);
     var community = document.getElementById('content-community')
     text_community = community.innerHTML;
