@@ -54,6 +54,8 @@ function main () {
     //-- Botones de las pestañas
     boton_comunidad.onclick = () => {
         if (mostrando_com) { //-- Si se están mostrando los datos...
+            console.log(community.innerHTML)
+            text_community = community.innerHTML; //-- Guardamos los cambios hechos por el usuario
             community.innerHTML = ""; //-- ...los ocultamos
             boton_comunidad.innerHTML = "Mostrar pestaña de comunidad";
             mostrando_com = false; //-- Cambiamos el booleano porque ya no lo estamos mostrando
@@ -61,7 +63,7 @@ function main () {
             community.innerHTML = text_community; //-- ...los desplegamos
             boton_comunidad.innerHTML = "Ocultar pestaña de comunidad";
             var valor_commits = document.getElementById("valor-commits");
-            console.log(valor_commits.value);
+            console.log(valor_commits.getAttribute('max'));
             mostrando_com = true; //-- Cambiamos el booleano porque ahora lo estamos mostrando
         }
     }
@@ -137,4 +139,25 @@ function main () {
             mostrando_adop = true; //-- Cambiamos el booleano porque ahora lo estamos mostrando
         }
     }
+}
+
+function edit_max_value() {
+    console.log("edito")
+    //-- Obtenemos cada elemento valor
+    var commits = document.getElementById("valor-commits");
+    var forks = document.getElementById("valor-forks");
+    var suscriptores = document.getElementById("valor-suscriptores");
+    var org = document.getElementById("valor-organización");
+    var actualizacion = document.getElementById("valor-actualización");
+
+    console.log('pasooooo')
+    //-- Obtenememos la suma de los valores del resto de elementos
+    suma = forks.value + suscriptores.value + org.value + actualizacion.value;
+
+    //-- Asignamos la ponderación máxima de commits como la resta del 100% menos la suma anterior
+    commits.getAttribute('max') = (100 - suma);
+}
+
+function save_input() {
+    console.log(document.getElementById('commits').value);
 }

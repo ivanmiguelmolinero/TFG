@@ -33,7 +33,6 @@ def post_repo(request):
             repo = get_repository(request.GET['text'])
             # PESTAÑA DE COMUNIDAD
             posts['commits'] = repo.get_commits().totalCount
-            posts['wiki'] = repo.has_wiki
             posts['forks'] = repo.forks_count
             posts['subscribers'] = repo.subscribers_count
             posts['organization'] = str(get_organization(repo))
