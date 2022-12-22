@@ -3,8 +3,10 @@ function main () {
     //-- Variables del bloque de comunidad
     var community = document.getElementById("content-community"); //-- Bloque de contenido de comunidad de la página
     var text_community = community.innerHTML; //-- Texto que contiene el bloque
-    community.innerHTML = ""; //-- Lo ocultamos para que al principio no se muestre
     var boton_comunidad = document.getElementById("mostrar-comunidad"); //-- Botón para desplegar u ocultar los datos
+    //var datos_commits = document.getElementById("commits");
+    community.innerHTML = ""; //-- Lo ocultamos para que al principio no se muestre
+    
 
     //-- Variables del bloque de seguridad
     var security = document.getElementById("content-security");
@@ -150,14 +152,21 @@ function edit_max_value() {
     var org = document.getElementById("valor-organización");
     var actualizacion = document.getElementById("valor-actualización");
 
-    console.log('pasooooo')
+    console.log(forks.value)
     //-- Obtenememos la suma de los valores del resto de elementos
-    suma = forks.value + suscriptores.value + org.value + actualizacion.value;
-
+    suma =  parseFloat(forks.value) + parseFloat(suscriptores.value) + parseFloat(org.value) + parseFloat(actualizacion.value);
+    console.log(suma)
     //-- Asignamos la ponderación máxima de commits como la resta del 100% menos la suma anterior
-    commits.getAttribute('max') = (100 - suma);
+    new_max = (100 - suma);
+    console.log(new_max);
+    commits.setAttribute('max', String(new_max));
+    console.log(commits.getAttribute('max'))
 }
 
 function save_input() {
-    console.log(document.getElementById('commits').value);
+    document.getElementById('commits').setAttribute(value,
+        document.getElementById('commits').value);
+    var community = document.getElementById('content-community')
+    text_community = community.innerHTML;
+    console.log(text_community)
 }
