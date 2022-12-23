@@ -22,20 +22,21 @@
         <h1>COMUNIDAD:</h1>
         {% for key, value in post.items %}
             {% if key == 'commits' %}
-                    <p>Número de commits: <input type="text" value="{{ value }}" id="commits" oninput="save_input();">
-                        Valor: <input type="number" name="valor-commits" value=16.6 step=0.1 max="100" id="valor-commits" oninput="edit_max_value();">
+                    <p>Número de commits: <input type="text" value="{{ value }}" id="commits" oninput="save_input_community('commits');">
+                        Valor: <input type="number" name="valor-commits" value=16.6 step=0.1 min="0" max="100" id="valor-commits" oninput="edit_max_value('commits');">
                         <br></p>
             {% elif key == 'forks' %}
-                <p>Número de forks: <input type="text" value="{{ value }}">
-                     Valor:<input type="number" name="valor-forks" value=16.6 step=0.1 id="valor-forks"><br></p>
+                <p>Número de forks: <input type="text" value="{{ value }}" id="forks" oninput="save_input_community('forks');">
+                     Valor:<input type="number" name="valor-forks" value=16.6 step=0.1 min="0" max="100" id="valor-forks" oninput="edit_max_value('forks')"><br></p>
             {% elif key == 'subscribers' %}
-                <p>Número de suscriptores: <input type="text" value="{{ value }}">
+                <p>Número de suscriptores: <input type="text" value="{{ value }}" id="suscriptores" oninput="save_input_community('suscriptores');">
                      Valor:<input type="number" name="valor-suscriptores" value=16.6 step=0.1 id="valor-suscriptores"><br></p>
             {% elif key == 'organization' %}
                 <p>¿Pertenece a una organización?<br>
                 {% if value == 'None' %}
-                    <input type="radio" value="Sí" name="organization"> Sí  <input type="text" placeholder="Nombre de la organización">
-                    <input type="radio" value="No" name="organization" checked> No
+                    <input type="radio" value="Sí" name="organization" id="organización-sí" oninput="save_input_community('organización-sí');"> Sí  
+                    <input type="text" placeholder="Nombre de la organización">
+                    <input type="radio" value="No" name="organization" id="organización-no" checked> No
                 {% else %}
                     <input type="radio" value="Sí" name="organization" checked> Sí <input type="text" value="{{ value }}">
                     <input type="radio" value="No" name="organization"> No
@@ -43,7 +44,7 @@
                  Valor:<input type="number" name="valor-organización" value=16.6 step=0.1 id="valor-organización"><br></p>
             {% elif key == 'lastUpdate' %}
                     <p>Última actualización: 
-                        <input type="date" id="start" name="update" value="{{ value }}" min="2001-01-01" max="{{ now }}">
+                        <input type="date" id="actualización" name="update" value="{{ value }}" min="2001-01-01" max="{{ now }}" oninput="save_input_community('actualización');">
                          Valor:<input type="number" name="valor-actualización" value=16.6 step=0.1 id="valor-actualización"></p>
             {% else %}
                     <p>{{ value }}</p>

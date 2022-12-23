@@ -143,30 +143,58 @@ function main () {
     }
 }
 
-function edit_max_value() {
+//-- Controla que el usuario no pueda meter valores que sumen más del 100%
+function edit_max_value(value) {
     console.log("edito")
+    element_to_edit = 'valor-' + value;
+    console.log(element_to_edit);
     //-- Obtenemos cada elemento valor
     var commits = document.getElementById("valor-commits");
     var forks = document.getElementById("valor-forks");
     var suscriptores = document.getElementById("valor-suscriptores");
     var org = document.getElementById("valor-organización");
     var actualizacion = document.getElementById("valor-actualización");
+    community_list = [commits, forks, suscriptores, org, actualizacion]
 
-    console.log(forks.value)
+    console.log(value)
     //-- Obtenememos la suma de los valores del resto de elementos
-    suma =  parseFloat(forks.value) + parseFloat(suscriptores.value) + parseFloat(org.value) + parseFloat(actualizacion.value);
-    console.log(suma)
+    //suma =  parseFloat(forks.value) + parseFloat(suscriptores.value) + parseFloat(org.value) + parseFloat(actualizacion.value);
     //-- Asignamos la ponderación máxima de commits como la resta del 100% menos la suma anterior
-    new_max = (100 - suma);
-    console.log(new_max);
-    commits.setAttribute('max', String(new_max));
-    console.log(commits.getAttribute('max'))
+    new_max = (100 - get_suma_community(community_list, element_to_edit));
+    set_max_attribute(element_to_edit, new_max);
+    //commits.setAttribute('max', String(new_max));
+    //console.log(commits.getAttribute('max'))
+    save_input_community('valor-' + value)
 }
 
-function save_input() {
-    document.getElementById('commits').setAttribute("value",
-        document.getElementById('commits').value);
+//-- Guarda los cambios que haga el usuario en la pestaña de comunidad
+function save_input_community(input) {
+    if (input == 'organización-sí') {
+        console.log(document.getElementById(input).checked);
+        document.getElementById(input).setAttribute('checked', '');
+        document.getElementById('organización-no').removeAttribute('checked');
+    } else if (input == 'organización-no') {
+        document.getElementById(input).setAttribute('checked', '');
+        document.getElementById('organización-sí').removeAttribute('checked');
+    } else {
+        document.getElementById(input).setAttribute("value",
+            document.getElementById(input).value);
+    }
     var community = document.getElementById('content-community')
     text_community = community.innerHTML;
-    console.log(text_community)
+    console.log(text_community);
+}
+
+function get_suma_community(com_list, element_to_edit) {
+    suma = 0;
+    for (let i = 0; i < com_list.length; i++) {
+        suma += parseFloat(com_list[i].value);
+    }
+    element_value = parseFloat(document.getElementById(element_to_edit).value);
+    suma -= element_value;
+    return suma;
+}
+
+function set_max_attribute(element_to_edit, new_max) {
+    document.getElementById(element_to_edit).setAttribute('max', new_max);
 }
