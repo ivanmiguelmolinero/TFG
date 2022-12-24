@@ -85,6 +85,7 @@ function main () {
 
     boton_funcionalidad.onclick = () => {
         if (mostrando_func) { //-- Si se están mostrando los datos...
+            text_funcionality = funcionality.innerHTML; //-- Guardamos los cambios hechos por el usuario
             funcionality.innerHTML = ""; //-- ...los ocultamos
             boton_funcionalidad.innerHTML = "Mostrar pestaña de funcionalidad";
             mostrando_func = false; //-- Cambiamos el booleano porque ya no lo estamos mostrando
@@ -186,6 +187,23 @@ function edit_max_value_security(value) {
     save_input_security(element_to_edit);
 }
 
+//-- Controla que el usuario no pueda meter valores que sumen más del 100% en la pestaña de funcionalidad
+function edit_max_value_funcionality(value) {
+    console.log('edito');
+    element_to_edit = 'valor-' + value;
+    console.log(element_to_edit);
+    //-- Obtenemos cada elemento valor
+    var tamaño = document.getElementById("valor-tamaño");
+    var plantilla = document.getElementById("valor-plantilla");
+    var proyectos = document.getElementById("valor-proyectos");
+    funcionality_list = [tamaño, plantilla, proyectos];
+    
+    //-- Asignamos la ponderación máxima como la resta del 100% menos la suma anterior
+    new_max = (100 - get_suma(funcionality_list, element_to_edit));
+    set_max_attribute(element_to_edit, new_max);
+    save_input_funcionality(element_to_edit);
+}
+
 //-- Guarda los cambios que haga el usuario en la pestaña de comunidad
 function save_input_community(input) {
     if (input == 'organización-sí') {
@@ -229,7 +247,29 @@ function save_input_security(input) {
     }
     var security = document.getElementById('content-security');
     text_security = security.innerHTML;
-    console.log(text_security);
+}
+
+//-- Guarda los cambios que haga el usuario en la pestaña de funcionalidad
+function save_input_funcionality(input) {
+    if (input == 'plantilla-sí') {
+        document.getElementById(input).setAttribute('checked', '');
+        document.getElementById('plantilla-no').removeAttribute('checked');
+    } else if (input == 'plantilla-no') {
+        document.getElementById(input).setAttribute('checked', '');
+        document.getElementById('plantilla-sí').removeAttribute('checked');
+    } else if (input == 'proyectos-sí') {
+        document.getElementById(input).setAttribute('checked', '');
+        document.getElementById('proyectos-no').removeAttribute('checked');
+    } else if (input == 'proyectos-no') {
+        document.getElementById(input).setAttribute('checked', '');
+        document.getElementById('proyectos-sí').removeAttribute('checked');
+    } else {
+        document.getElementById(input).setAttribute("value",
+            document.getElementById(input).value);
+    }
+    var funcionality = document.getElementById('content-funcionality');
+    text_funcionality = funcionality.innerHTML;
+    console.log(text_funcionality);
 }
 
 //-- Obtiene el valor de la suma de los pesos de todos los elementos salvo el que se va a editar

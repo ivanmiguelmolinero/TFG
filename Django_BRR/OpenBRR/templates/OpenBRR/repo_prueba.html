@@ -98,22 +98,26 @@
         <h1>FUNCIONALIDAD:</h1>
         {% for key, value in post_func.items %}
             {% if key == 'size' %}
-                <p>Tamaño: <input type="text" name="size" value="{{ value }}">KB
-                      Valor:<input type="number" name="valor-tamaño" value=16.6 step=0.1 id="valor-tamaño"></p>
+                <p>Tamaño: <input type="text" name="size" value="{{ value }}" id="tamaño" oninput="save_input_funcionality('tamaño');">KB
+                      Valor:<input type="number" name="valor-tamaño" value=16.6 step=0.1 id="valor-tamaño" oninput="edit_max_value_funcionality('tamaño');"></p>
             {% elif key == 'template' %}
                 {% if value == 'Sí' %}
-                    <p>¿Es una plantilla?:<input type="radio" value="Sí" name="template" checked> Sí <input type="radio" value="No" name="template"> No
+                    <p>¿Es una plantilla?:<input type="radio" value="Sí" name="template" id="plantilla-sí" oninput="save_input_funcionality('plantilla-sí');" checked> Sí 
+                        <input type="radio" value="No" name="template" id="plantilla-no" oninput="save_input_funcionality('plantilla-no');"> No
                 {% else %}
-                    <p>¿Es una plantilla?:<input type="radio" value="Sí" name="template"> Sí <input type="radio" value="No" name="template" checked> No
+                    <p>¿Es una plantilla?:<input type="radio" value="Sí" name="template" id="plantilla-sí" oninput="save_input_funcionality('plantilla-sí');"> Sí 
+                        <input type="radio" value="No" name="template" id="plantilla-no" oninput="save_input_funcionality('plantilla-no');" checked> No
                 {% endif %}
-                 Valor:<input type="number" name="valor-plantilla" value=16.6 step=0.1 id="valor-plantilla"></p><br>
+                 Valor:<input type="number" name="valor-plantilla" value=16.6 step=0.1 id="valor-plantilla" oninput="edit_max_value_funcionality('plantilla');"></p><br>
             {% elif key == 'projects' %}
                 {% if value == 'Sí' %}
-                    <p>¿Tiene proyectos asociados?: <input type="radio" value="Sí" name="projects" checked> Sí <input type="radio" value="No" name="projects"> No
+                    <p>¿Tiene proyectos asociados?: <input type="radio" value="Sí" name="projects" id="proyectos-sí" oninput="save_input_funcionality('proyectos-sí');" checked> Sí 
+                        <input type="radio" value="No" name="projects" id="proyectos-no" oninput="save_input_funcionality('proyectos-no');"> No
                 {% else %}
-                    <p>¿Tiene proyectos asociados?: <input type="radio" value="Sí" name="projects"> Sí <input type="radio" value="No" name="projects" checked> No
+                    <p>¿Tiene proyectos asociados?: <input type="radio" value="Sí" name="projects" id="proyectos-sí" oninput="save_input_funcionality('proyectos-sí');"> Sí 
+                        <input type="radio" value="No" name="projects" id="proyectos-no" oninput="save_input_funcionality('proyectos-no');" checked> No
                 {% endif %}
-                 Valor:<input type="number" name="valor-proyectos" value=16.6 step=0.1 id="valor-proyectos"></p><br>
+                 Valor:<input type="number" name="valor-proyectos" value=16.6 step=0.1 id="valor-proyectos" oninput="edit_max_value_funcionality('proyectos');"></p><br>
             {% else %}
                 <p>{{ value }}</p>
             {% endif %}
