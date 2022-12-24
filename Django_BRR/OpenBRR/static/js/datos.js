@@ -98,6 +98,7 @@ function main () {
 
     boton_soporte.onclick = () => {
         if (mostrando_supp) { //-- Si se están mostrando los datos...
+            text_support = support.innerHTML; //-- Guardamos los cambios hechos por el usuario
             support.innerHTML = ""; //-- ...los ocultamos
             boton_soporte.innerHTML = "Mostrar pestaña de soporte";
             mostrando_supp = false; //-- Cambiamos el booleano porque ya no lo estamos mostrando
@@ -110,6 +111,7 @@ function main () {
 
     boton_calidad.onclick = () => {
         if (mostrando_qual) { //-- Si se están mostrando los datos...
+            text_quality = quality.innerHTML; //-- Guardamos los cambios hechos por el usuario
             quality.innerHTML = ""; //-- ...los ocultamos
             boton_calidad.innerHTML = "Mostrar pestaña de calidad";
             mostrando_qual = false; //-- Cambiamos el booleano porque ya no lo estamos mostrando
@@ -204,6 +206,40 @@ function edit_max_value_funcionality(value) {
     save_input_funcionality(element_to_edit);
 }
 
+//-- Controla que el usuario no pueda meter valores que sumen más del 100% en la pestaña de soporte
+function edit_max_value_support(value) {
+    console.log('edito');
+    element_to_edit = 'valor-' + value;
+    console.log(element_to_edit);
+    //-- Obtenemos cada elemento valor
+    var wiki = document.getElementById('valor-wiki');
+    var homepage = document.getElementById('valor-homepage');
+    support_list = [wiki, homepage];
+
+    //-- Asignamos la ponderación máxima como la resta del 100% menos la suma anterior
+    new_max = (100 - get_suma(support_list, element_to_edit));
+    set_max_attribute(element_to_edit, new_max);
+    save_input_support(element_to_edit);
+}
+
+//-- Controla que el usuario no pueda meter valores que sumen más del 100% en la pestaña de soporte
+function edit_max_value_quality(value) {
+    console.log('edito');
+    element_to_edit = 'valor-' + value;
+    console.log(element_to_edit);
+    //-- Obtenemos cada elemento valor
+    var followers_ow = document.getElementById('valor-seg-dueño');
+    var repos_ow = document.getElementById('valor-repos-dueño');
+    var followers_org = document.getElementById('valor-seg-org');
+    var repos_org = document.getElementById('valor-repos-org');
+    quality_list = [followers_ow, repos_ow, followers_org, repos_org];
+
+    //-- Asignamos la ponderación máxima como la resta del 100% menos la suma anterior
+    new_max = (100 - get_suma(quality_list, element_to_edit));
+    set_max_attribute(element_to_edit, new_max);
+    save_input_quality(element_to_edit);
+}
+
 //-- Guarda los cambios que haga el usuario en la pestaña de comunidad
 function save_input_community(input) {
     if (input == 'organización-sí') {
@@ -269,7 +305,38 @@ function save_input_funcionality(input) {
     }
     var funcionality = document.getElementById('content-funcionality');
     text_funcionality = funcionality.innerHTML;
-    console.log(text_funcionality);
+}
+
+//-- Guarda los cambios que haga el usuario en la pestaña de soporte
+function save_input_support(input) {
+    if (input == 'wiki-sí') {
+        document.getElementById(input).setAttribute('checked', '');
+        document.getElementById('wiki-no').removeAttribute('checked');
+    } else if (input == 'wiki-no') {
+        document.getElementById(input).setAttribute('checked', '');
+        document.getElementById('wiki-sí').removeAttribute('checked');
+    } else if (input == 'homepage-sí') {
+        document.getElementById(input).setAttribute('checked', '');
+        document.getElementById('homepage-no').removeAttribute('checked');
+    } else if (input == 'homepage-no') {
+        document.getElementById(input).setAttribute('checked', '');
+        document.getElementById('homepage-sí').removeAttribute('checked');
+    } else {
+        document.getElementById(input).setAttribute("value",
+            document.getElementById(input).value);
+    }
+    var support = document.getElementById('content-support');
+    text_support = support.innerHTML;
+}
+
+//-- Guarda los cambios que haga el usuario en la pestaña de calidad
+function save_input_quality(input) {
+    document.getElementById(input).setAttribute("value",
+        document.getElementById(input).value);
+    
+        var quality = document.getElementById('content-quality');
+        text_quality = quality.innerHTML;
+        console.log(quality);
 }
 
 //-- Obtiene el valor de la suma de los pesos de todos los elementos salvo el que se va a editar

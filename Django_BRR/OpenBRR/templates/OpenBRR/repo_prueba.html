@@ -129,22 +129,24 @@
         {% for key, value in post_supp.items %}
             {% if key == 'wiki' %}
                 {% if value == 'Sí' %}
-                    <p>¿Tiene wiki?:<input type="radio" value="Sí" name="wiki" checked> Sí <input type="radio" value="No" name="wiki"> No
+                    <p>¿Tiene wiki?:<input type="radio" value="Sí" name="wiki" id="wiki-sí" oninput="save_input_support('wiki-sí');" checked> Sí 
+                        <input type="radio" value="No" name="wiki" id="wiki-no" oninput="save_input_support('wiki-no');"> No
                 {% else %}
-                    <p>¿Tiene wiki?:<input type="radio" value="Sí" name="wiki"> Sí <input type="radio" value="No" name="wiki" checked> No
+                    <p>¿Tiene wiki?:<input type="radio" value="Sí" name="wiki" id="wiki-sí" oninput="save_input_support('wiki-sí');"> Sí 
+                        <input type="radio" value="No" name="wiki" id="wiki-no" oninput="save_input_support('wiki-no');" checked> No
                 {% endif %}
-                 Valor:<input type="number" name="valor-wiki" value=16.6 step=0.1 id="valor-wiki"></p><br>
+                 Valor:<input type="number" name="valor-wiki" value=16.6 step=0.1 id="valor-wiki" oninput="edit_max_value_support('wiki');"></p><br>
             {% elif key == 'homepage' %}
                 {% if value == 'None' %}
                     ¿Tiene homepage?:
-                    <input type="radio" value="Sí" name="homepage"> Sí  <input type="text" placeholder="URL homepage">
-                    <input type="radio" value="No" name="homepage" checked> No
+                    <input type="radio" value="Sí" name="homepage" id="homepage-sí" oninput="save_input_support('homepage-sí');"> Sí
+                    <input type="radio" value="No" name="homepage" id="homepage-no" oninput="save_input_support('homepage-no');" checked> No
                 {% else %}
                     ¿Tiene homepage?:
-                    <input type="radio" value="Sí" name="homepage" checked> Sí <input type="text" value="{{ value }}">
-                    <input type="radio" value="No" name="homepage"> No
+                    <input type="radio" value="Sí" name="homepage"  id="homepage-sí" oninput="save_input_support('homepage-sí');" checked> Sí
+                    <input type="radio" value="No" name="homepage" id="homepage-no" oninput="save_input_support('homepage-no');"> No
                 {% endif %}
-                 Valor:<input type="number" name="valor-homepage" value=16.6 step=0.1 id="valor-homepage"></p><br>
+                 Valor:<input type="number" name="valor-homepage" value=16.6 step=0.1 id="valor-homepage" oninput="edit_max_value_support('homepage');"></p><br>
             {% else %}
                 <p>{{ value }}</p>
             {% endif %}
@@ -155,17 +157,17 @@
         <h1>CALIDAD:</h1>
         {% for key, value in post_qual.items %}
             {% if key == 'followers_owner' %}
-                <p>Seguidores del dueño del repositorio: <input type="text" name="followers_owner" value="{{ value }}">
-                 Valor:<input type="number" name="valor-seg-dueño" value=16.6 step=0.1 id="valor-seg-dueño"></p>
+                <p>Seguidores del dueño del repositorio: <input type="text" name="followers_owner" value="{{ value }}" id="followers_ow" oninput="save_input_quality('followers_ow');">
+                 Valor:<input type="number" name="valor-seg-dueño" value=16.6 step=0.1 id="valor-seg-dueño" oninput="edit_max_value_quality('seg-dueño');"></p>
             {% elif key == 'n_repos' %}
-                <p>Número de repositorios del dueño del repositorio: <input type="text" name="n_repos" value="{{ value }}">
-                 Valor:<input type="number" name="valor-repos-dueño" value=16.6 step=0.1 id="valor-repos-dueño"></p>
+                <p>Número de repositorios del dueño del repositorio: <input type="text" name="n_repos" value="{{ value }}" id="repos_ow" oninput="save_input_quality('repos_ow');">
+                 Valor:<input type="number" name="valor-repos-dueño" value=16.6 step=0.1 id="valor-repos-dueño" oninput="edit_max_value_quality('repos-dueño');"></p>
             {% elif key == 'followers_org' %}
-                <p>Seguidores de la organización: <input type="text" name="followers_org" value="{{ value }}">
-                 Valor:<input type="number" name="valor-seg-org" value=16.6 step=0.1 id="valor-seg-org"></p>
+                <p>Seguidores de la organización: <input type="text" name="followers_org" value="{{ value }}" id="followers_org" oninput="save_input_quality('followers_org');">
+                 Valor:<input type="number" name="valor-seg-org" value=16.6 step=0.1 id="valor-seg-org" oninput="edit_max_value_quality('seg-org');"></p>
             {% elif key == 'n_repos_org' %}
-                <p>Número de repositorios de la organización: <input type="text" name="n_repos_org" value="{{ value }}">
-                 Valor:<input type="number" name="valor-repos-org" value=16.6 step=0.1 id="valor-repos-org"></p>
+                <p>Número de repositorios de la organización: <input type="text" name="n_repos_org" value="{{ value }}" id="repos_org" oninput="save_input_quality('repos_org');">
+                 Valor:<input type="number" name="valor-repos-org" value=16.6 step=0.1 id="valor-repos-org" oninput="edit_max_value_quality('repos-org');"></p>
             {% else %}
                 <p>{{ value }}</p>
             {% endif %}
