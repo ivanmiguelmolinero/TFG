@@ -64,14 +64,15 @@ function main () {
         } else { //-- Si no se están mostrando...
             community.innerHTML = text_community; //-- ...los desplegamos
             boton_comunidad.innerHTML = "Ocultar pestaña de comunidad";
-            var valor_commits = document.getElementById("valor-commits");
-            console.log(valor_commits.getAttribute('max'));
+            //var valor_commits = document.getElementById("valor-commits");
+            //console.log(valor_commits.getAttribute('max'));
             mostrando_com = true; //-- Cambiamos el booleano porque ahora lo estamos mostrando
         }
     }
 
     boton_seguridad.onclick = () => {
         if (mostrando_sec) { //-- Si se están mostrando los datos...
+            text_security = security.innerHTML; //-- Guardamos los cambios hechos por el usuario
             security.innerHTML = ""; //-- ...los ocultamos
             boton_seguridad.innerHTML = "Mostrar pestaña de seguridad";
             mostrando_sec = false; //-- Cambiamos el booleano porque ya no lo estamos mostrando
@@ -143,8 +144,8 @@ function main () {
     }
 }
 
-//-- Controla que el usuario no pueda meter valores que sumen más del 100%
-function edit_max_value(value) {
+//-- Controla que el usuario no pueda meter valores que sumen más del 100% en la pestaña de comunidad
+function edit_max_value_community(value) {
     console.log("edito")
     element_to_edit = 'valor-' + value;
     console.log(element_to_edit);
@@ -159,12 +160,30 @@ function edit_max_value(value) {
     console.log(value)
     //-- Obtenememos la suma de los valores del resto de elementos
     //suma =  parseFloat(forks.value) + parseFloat(suscriptores.value) + parseFloat(org.value) + parseFloat(actualizacion.value);
-    //-- Asignamos la ponderación máxima de commits como la resta del 100% menos la suma anterior
-    new_max = (100 - get_suma_community(community_list, element_to_edit));
+    //-- Asignamos la ponderación máxima como la resta del 100% menos la suma anterior
+    new_max = (100 - get_suma(community_list, element_to_edit));
     set_max_attribute(element_to_edit, new_max);
     //commits.setAttribute('max', String(new_max));
     //console.log(commits.getAttribute('max'))
     save_input_community('valor-' + value)
+}
+
+//-- Controla que el usuario no pueda meter valores que sumen más del 100% en la pestaña de seguridad
+function edit_max_value_security(value) {
+    console.log("edito")
+    element_to_edit = 'valor-' + value;
+    console.log(element_to_edit);
+    //-- Obtenemos cada elemento valor
+    var licencia = document.getElementById("valor-licencia");
+    var viewers = document.getElementById("valor-viewers");
+    var problemas = document.getElementById("valor-problemas");
+    var vulnerabilidad = document.getElementById("valor-vulnerabilidad");
+    security_list = [licencia, viewers, problemas, vulnerabilidad];
+
+    //-- Asignamos la ponderación máxima como la resta del 100% menos la suma anterior
+    new_max = (100 - get_suma(security_list, element_to_edit));
+    set_max_attribute(element_to_edit, new_max);
+    save_input_security(element_to_edit);
 }
 
 //-- Guarda los cambios que haga el usuario en la pestaña de comunidad
@@ -182,10 +201,39 @@ function save_input_community(input) {
     }
     var community = document.getElementById('content-community')
     text_community = community.innerHTML;
-    console.log(text_community);
 }
 
-function get_suma_community(com_list, element_to_edit) {
+//-- Guarda los cambios que haga el usuario en la pestaña de seguridad
+function save_input_security(input) {
+    if (input == 'licencia-sí') {
+        document.getElementById(input).setAttribute('checked', '');
+        document.getElementById('licencia-no').removeAttribute('checked');
+    } else if (input == 'licencia-no') {
+        document.getElementById(input).setAttribute('checked', '');
+        document.getElementById('licencia-sí').removeAttribute('checked');
+    } else if (input == 'problemas-sí') {
+        document.getElementById(input).setAttribute('checked', '');
+        document.getElementById('problemas-no').removeAttribute('checked');
+    } else if (input == 'problemas-no') {
+        document.getElementById(input).setAttribute('checked', '');
+        document.getElementById('problemas-sí').removeAttribute('checked');
+    } else if (input == 'vulnerabilidad-sí') {
+        document.getElementById(input).setAttribute('checked', '');
+        document.getElementById('vulnerabilidad-no').removeAttribute('checked');
+    } else if (input == 'vulnerabilidad-no') {
+        document.getElementById(input).setAttribute('checked', '');
+        document.getElementById('vulnerabilidad-sí').removeAttribute('checked');
+    } else {
+        document.getElementById(input).setAttribute("value",
+            document.getElementById(input).value);
+    }
+    var security = document.getElementById('content-security');
+    text_security = security.innerHTML;
+    console.log(text_security);
+}
+
+//-- Obtiene el valor de la suma de los pesos de todos los elementos salvo el que se va a editar
+function get_suma(com_list, element_to_edit) {
     suma = 0;
     for (let i = 0; i < com_list.length; i++) {
         suma += parseFloat(com_list[i].value);

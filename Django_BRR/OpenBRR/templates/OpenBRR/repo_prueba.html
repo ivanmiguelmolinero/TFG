@@ -23,28 +23,28 @@
         {% for key, value in post.items %}
             {% if key == 'commits' %}
                     <p>Número de commits: <input type="text" value="{{ value }}" id="commits" oninput="save_input_community('commits');">
-                        Valor: <input type="number" name="valor-commits" value=16.6 step=0.1 min="0" max="100" id="valor-commits" oninput="edit_max_value('commits');">
+                        Valor: <input type="number" name="valor-commits" value=16.6 step=0.1 min="0" max="100" id="valor-commits" oninput="edit_max_value_community('commits');">
                         <br></p>
             {% elif key == 'forks' %}
                 <p>Número de forks: <input type="text" value="{{ value }}" id="forks" oninput="save_input_community('forks');">
-                     Valor:<input type="number" name="valor-forks" value=16.6 step=0.1 min="0" max="100" id="valor-forks" oninput="edit_max_value('forks')"><br></p>
+                     Valor:<input type="number" name="valor-forks" value=16.6 step=0.1 min="0" max="100" id="valor-forks" oninput="edit_max_value_community('forks')"><br></p>
             {% elif key == 'subscribers' %}
                 <p>Número de suscriptores: <input type="text" value="{{ value }}" id="suscriptores" oninput="save_input_community('suscriptores');">
-                     Valor:<input type="number" name="valor-suscriptores" value=16.6 step=0.1 id="valor-suscriptores" oninput="edit_max_value('suscriptores');"><br></p>
+                     Valor:<input type="number" name="valor-suscriptores" value=16.6 step=0.1 id="valor-suscriptores" oninput="edit_max_value_community('suscriptores');"><br></p>
             {% elif key == 'organization' %}
                 <p>¿Pertenece a una organización?<br>
                 {% if value == 'None' %}
                     <input type="radio" value="Sí" name="organization" id="organización-sí" oninput="save_input_community('organización-sí');"> Sí  
-                    <input type="radio" value="No" name="organization" id="organización-no" checked> No
+                    <input type="radio" value="No" name="organization" id="organización-no" oninput="save_input_community('organización-no');" checked> No
                 {% else %}
-                    <input type="radio" value="Sí" name="organization" checked> Sí <input type="text" value="{{ value }}">
-                    <input type="radio" value="No" name="organization"> No
+                    <input type="radio" value="Sí" name="organization" id="organización-sí" oninput="save_input_community('organización-sí');" checked> Sí
+                    <input type="radio" value="No" name="organization" id="organización-no" oninput="save_input_community('organización-no');"> No
                 {% endif %}
-                 Valor:<input type="number" name="valor-organización" value=16.6 step=0.1 id="valor-organización" oninput="edit_max_value('organización');"><br></p>
+                 Valor:<input type="number" name="valor-organización" value=16.6 step=0.1 id="valor-organización" oninput="edit_max_value_community('organización');"><br></p>
             {% elif key == 'lastUpdate' %}
                     <p>Última actualización: 
                         <input type="date" id="actualización" name="update" value="{{ value }}" min="2001-01-01" max="{{ now }}" oninput="save_input_community('actualización');">
-                         Valor:<input type="number" name="valor-actualización" value=16.6 step=0.1 id="valor-actualización" oninput="edit_max_value('actualización');"></p>
+                         Valor:<input type="number" name="valor-actualización" value=16.6 step=0.1 id="valor-actualización" oninput="edit_max_value_community('actualización');"></p>
             {% else %}
                     <p>{{ value }}</p>
             {% endif %}
@@ -57,31 +57,37 @@
         {% for key, value in post_sec.items %}
             {% if key == 'license' %}
                     {% if value == 'Sí' %}
-                        <p>Licencia: <input type="radio" value="Sí" name="license" checked> Sí <input type="radio" value="No" name="license"> No
+                        <p>Licencia: <input type="radio" value="Sí" name="license" id="licencia-sí" oninput="save_input_security('licencia-sí');" checked> Sí 
+                            <input type="radio" value="No" name="license" id="licencia-no" oninput="save_input_security('licencia-no');"> No
                     {% else %}
-                        <p>Licencia: <input type="radio" value="Sí" name="license"> Sí <input type="radio" value="No" name="license" checked> No
+                        <p>Licencia: <input type="radio" value="Sí" name="license" id="licencia-sí" oninput="save_input_security('licencia-sí');"> Sí 
+                            <input type="radio" value="No" name="license" id="licencia-no" oninput="save_input_security('licencia-no');" checked> No
                     {% endif %}
-                     Valor:<input type="number" name="valor-licencia" value=16.6 step=0.1 id="valor-licencia"></p><br>
+                     Valor:<input type="number" name="valor-licencia" value=16.6 step=0.1 id="valor-licencia" oninput="edit_max_value_security('licencia');"></p><br>
             {% elif key == 'viewers' %}
-                <p>Personas que han visto este repositorio: <input type="text" value="{{ value }}">
-                     Valor:<input type="number" name="valor-viewers" value=16.6 step=0.1 id="valor-viewers"><br></p>
+                <p>Personas que han visto este repositorio: <input type="text" value="{{ value }}" id="viewers" oninput="save_input_security('viewers')">
+                     Valor:<input type="number" name="valor-viewers" value=16.6 step=0.1 id="valor-viewers" oninput="edit_max_value_security('viewers');"><br></p>
             {% elif key == 'issues' %}
                 <p>¿Tiene problemas abiertos?<br>
                     {% if value == 'No' %}
-                        <input type="radio" value="Sí" name="issues"> Sí  <input type="text" placeholder="Número de problemas">
-                        <input type="radio" value="No" name="issues" checked> No
+                        <input type="radio" value="Sí" name="issues" id="problemas-sí" oninput="save_input_security('problemas-sí');"> Sí  
+                        <input type="text" placeholder="Número de problemas" id="n_problemas" oninput="save_input_security('n_problemas');">
+                        <input type="radio" value="No" name="issues" id="problemas-no" oninput="save_input_security('problemas-no');" checked> No
                     {% else %}
-                        <input type="radio" value="Sí" name="issues" checked> Sí <input type="text" value="{{ issues }}">
-                        <input type="radio" value="No" name="issues"> No
+                        <input type="radio" value="Sí" name="issues" id="problemas-sí" oninput="save_input_security('problemas-sí');" checked> Sí 
+                        <input type="text" value="{{ issues }}">
+                        <input type="radio" value="No" name="issues" id="problemas-no" oninput="save_input_security('problemas-no');"> No
                     {% endif %}
-                     Valor:<input type="number" name="valor-problemas" value=16.6 step=0.1 id="valor-problemas"></p><br>
+                     Valor:<input type="number" name="valor-problemas" value=16.6 step=0.1 id="valor-problemas" oninput="edit_max_value_security('problemas');"></p><br>
             {% elif key == 'vulnerability' %}
                     {% if value == True %}
-                        <p>¿Tiene vulnerabilidad?: <input type="radio" value="Sí" name="vulnerability" checked> Sí <input type="radio" value="No" name="vulnerability"> No
+                        <p>¿Tiene vulnerabilidad?: <input type="radio" value="Sí" name="vulnerability" id="vulnerabilidad-sí" oninput="save_input_security('vulnerabilidad-sí');" checked> Sí 
+                            <input type="radio" value="No" name="vulnerability" id="vulnerabilidad-no" oninput="save_input_security('vulnerabilidad-no');"> No
                     {% else %}
-                        <p>¿Tiene vulnerabilidad?: <input type="radio" value="Sí" name="vulnerability"> Sí <input type="radio" value="No" name="vulnerability" checked> No
+                        <p>¿Tiene vulnerabilidad?: <input type="radio" value="Sí" name="vulnerability" id="vulnerabilidad-sí" oninput="save_input_security('vulnerabilidad-sí');"> Sí 
+                            <input type="radio" value="No" name="vulnerability" id="vulnerabilidad-no" oninput="save_input_security('vulnerabilidad-no');" checked> No
                     {% endif %}
-                     Valor:<input type="number" name="valor-vulnerabilidad" value=16.6 step=0.1 id="valor-vulnerabilidad"></p><br>
+                     Valor:<input type="number" name="valor-vulnerabilidad" value=16.6 step=0.1 id="valor-vulnerabilidad" oninput="edit_max_value_security('vulnerabilidad');"></p><br>
             {% else %}
                 <p>{{ value }}</p>
             {% endif %}
