@@ -30,22 +30,21 @@
                      Valor:<input type="number" name="valor-forks" value=16.6 step=0.1 min="0" max="100" id="valor-forks" oninput="edit_max_value('forks')"><br></p>
             {% elif key == 'subscribers' %}
                 <p>Número de suscriptores: <input type="text" value="{{ value }}" id="suscriptores" oninput="save_input_community('suscriptores');">
-                     Valor:<input type="number" name="valor-suscriptores" value=16.6 step=0.1 id="valor-suscriptores"><br></p>
+                     Valor:<input type="number" name="valor-suscriptores" value=16.6 step=0.1 id="valor-suscriptores" oninput="edit_max_value('suscriptores');"><br></p>
             {% elif key == 'organization' %}
                 <p>¿Pertenece a una organización?<br>
                 {% if value == 'None' %}
                     <input type="radio" value="Sí" name="organization" id="organización-sí" oninput="save_input_community('organización-sí');"> Sí  
-                    <input type="text" placeholder="Nombre de la organización">
                     <input type="radio" value="No" name="organization" id="organización-no" checked> No
                 {% else %}
                     <input type="radio" value="Sí" name="organization" checked> Sí <input type="text" value="{{ value }}">
                     <input type="radio" value="No" name="organization"> No
                 {% endif %}
-                 Valor:<input type="number" name="valor-organización" value=16.6 step=0.1 id="valor-organización"><br></p>
+                 Valor:<input type="number" name="valor-organización" value=16.6 step=0.1 id="valor-organización" oninput="edit_max_value('organización');"><br></p>
             {% elif key == 'lastUpdate' %}
                     <p>Última actualización: 
                         <input type="date" id="actualización" name="update" value="{{ value }}" min="2001-01-01" max="{{ now }}" oninput="save_input_community('actualización');">
-                         Valor:<input type="number" name="valor-actualización" value=16.6 step=0.1 id="valor-actualización"></p>
+                         Valor:<input type="number" name="valor-actualización" value=16.6 step=0.1 id="valor-actualización" oninput="edit_max_value('actualización');"></p>
             {% else %}
                     <p>{{ value }}</p>
             {% endif %}
