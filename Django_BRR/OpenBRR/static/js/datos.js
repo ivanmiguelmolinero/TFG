@@ -124,6 +124,7 @@ function main () {
 
     boton_usabilidad.onclick = () => {
         if (mostrando_usab) { //-- Si se están mostrando los datos...
+            text_usability = usability.innerHTML; //-- Guardamos los cambios hechos por el usuario
             usability.innerHTML = ""; //-- ...los ocultamos
             boton_usabilidad.innerHTML = "Mostrar pestaña de usabilidad";
             mostrando_usab = false; //-- Cambiamos el booleano porque ya no lo estamos mostrando
@@ -240,6 +241,22 @@ function edit_max_value_quality(value) {
     save_input_quality(element_to_edit);
 }
 
+//-- Controla que el usuario no pueda meter valores que sumen más del 100% en la pestaña de usabilidad
+function edit_max_value_usability(value) {
+    console.log('edito');
+    element_to_edit = 'valor-' + value;
+    console.log(element_to_edit);
+    //-- Obtenemos cada elemento valor
+    var lenguajes = document.getElementById('valor-lenguajes');
+    var readme = document.getElementById('valor-readme');
+    usability_list = [lenguajes, readme];
+
+    //-- Asignamos la ponderación máxima como la resta del 100% menos la suma anterior
+    new_max = (100 - get_suma(usability_list, element_to_edit));
+    set_max_attribute(element_to_edit, new_max);
+    save_input_usability(element_to_edit);
+}
+
 //-- Guarda los cambios que haga el usuario en la pestaña de comunidad
 function save_input_community(input) {
     if (input == 'organización-sí') {
@@ -337,6 +354,22 @@ function save_input_quality(input) {
         var quality = document.getElementById('content-quality');
         text_quality = quality.innerHTML;
         console.log(quality);
+}
+
+//-- Guarda los cambios que haga el usuario en la pestaña de usabilidad
+function save_input_usability(input) {
+    if (input == 'readme-sí') {
+        document.getElementById(input).setAttribute('checked', '');
+        document.getElementById('readme-no').removeAttribute('checked');
+    } else if (input == 'readme-no') {
+        document.getElementById(input).setAttribute('checked', '');
+        document.getElementById('readme-sí').removeAttribute('checked');
+    } else {
+        document.getElementById(input).setAttribute("value",
+            document.getElementById(input).value);
+    }
+    var usability = document.getElementById('content-usability');
+    text_usability = usability.innerHTML;
 }
 
 //-- Obtiene el valor de la suma de los pesos de todos los elementos salvo el que se va a editar
