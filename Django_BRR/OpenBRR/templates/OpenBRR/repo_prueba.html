@@ -198,11 +198,13 @@
         {% for key, value in post_adop.items %}
             {% if key == 'downloads' %}
                 {% if value == 'Sí' %}
-                    <p>¿Tiene descargas?: <input type="radio" value="Sí" name="downloads" checked> Sí <input type="radio" value="No" name="downloads"> No
+                    <p>¿Tiene descargas?: <input type="radio" value="Sí" name="downloads" id="descargas-sí" oninput="save_input_adoption('descargas-sí');" checked> Sí 
+                        <input type="radio" value="No" name="downloads" id="descargas-no" oninput="save_input_adoption('descargas-no');"> No
                 {% else %}
-                    <p>¿Tiene descargas?: <input type="radio" value="Sí" name="downloads"> Sí <input type="radio" value="No" name="downloads" checked> No
+                    <p>¿Tiene descargas?: <input type="radio" value="Sí" name="downloads" id="descargas-sí" oninput="save_input_adoption('descargas-sí');"> Sí
+                         <input type="radio" value="No" name="downloads" id="descargas-no" oninput="save_input_adoption('descargas-no');" checked> No
                 {% endif %}
-                 Valor:<input type="number" name="valor-descargas" value=16.6 step=0.1 id="valor-descargas"></p><br>
+                 Valor:<input type="number" name="valor-descargas" value=16.6 step=0.1 min="0" max="100" id="valor-descargas" oninput="edit_max_value_adoption('descargas');"></p><br>
             {% endif %}
         {% endfor %}
     </div>

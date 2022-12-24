@@ -137,6 +137,7 @@ function main () {
 
     boton_adoption.onclick = () => {
         if (mostrando_adop) { //-- Si se están mostrando los datos...
+            text_adoption = adoption.innerHTML; //-- Guardamos los cambios hechos por el usuario
             adoption.innerHTML = ""; //-- ...los ocultamos
             boton_adoption.innerHTML = "Mostrar pestaña de adopción";
             mostrando_adop = false; //-- Cambiamos el booleano porque ya no lo estamos mostrando
@@ -257,6 +258,13 @@ function edit_max_value_usability(value) {
     save_input_usability(element_to_edit);
 }
 
+//-- Controla que el usuario no pueda meter valores que sumen más del 100% en la pestaña de adopción
+function edit_max_value_adoption(value) {
+    element_to_edit = 'valor-' + value;
+    //set_max_attribute(element_to_edit, new_max);
+    save_input_adoption(element_to_edit);
+}
+
 //-- Guarda los cambios que haga el usuario en la pestaña de comunidad
 function save_input_community(input) {
     if (input == 'organización-sí') {
@@ -370,6 +378,22 @@ function save_input_usability(input) {
     }
     var usability = document.getElementById('content-usability');
     text_usability = usability.innerHTML;
+}
+
+//-- Guarda los cambios que haga el usuario en la pestaña de adopción
+function save_input_adoption(input) {
+    if (input == 'descargas-sí') {
+        document.getElementById(input).setAttribute('checked', '');
+        document.getElementById('descargas-no').removeAttribute('checked');
+    } else if (input == 'descargas-no') {
+        document.getElementById(input).setAttribute('checked', '');
+        document.getElementById('descargas-sí').removeAttribute('checked');
+    } else {
+        document.getElementById(input).setAttribute("value",
+            document.getElementById(input).value);
+    }
+    var adoption = document.getElementById('content-adoption');
+    text_adoption = adoption.innerHTML;
 }
 
 //-- Obtiene el valor de la suma de los pesos de todos los elementos salvo el que se va a editar
