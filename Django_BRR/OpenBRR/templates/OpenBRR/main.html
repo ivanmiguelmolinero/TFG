@@ -17,8 +17,6 @@
     <form method="GET" class="post-form" action="post">{% csrf_token %}
         {{ form.as_p }}
         Repo a analizar: <input type="text" name="text" id="text"> <br>
-        ¿Tiene licencia?: <input type="text" name="license"> <br>
-        Número de commits: <input type="text" name="commits">
         <button type="submit" class="save btn btn-default">Save</button>
     </form>
 </body>

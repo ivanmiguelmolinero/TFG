@@ -5,7 +5,9 @@ urlpatterns = [
     # Para el URL raíz muestro la página principal
     path('', views.post_main, name='post_main'),
     # Para hacer un POST del repo
-    path('post', views.post_repo, name='post_repo')
+    path('post', views.post_repo, name='post_repo'),
+    # Para enviar los datos del repositorio
+    path('get-data', views.get_data, name='get_data')
 #     # Para el URL de la imagen muestro la imagen
 #     path('/github.png', views.post_img, name='post_img'),
 #     # Para el URL post/[entero] devuelvo el post correspondiente a ese entero

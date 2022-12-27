@@ -104,6 +104,11 @@ def post_repo(request):
     else:
         return render(request, 'OpenBRR/main.html', {})
 
+def get_data(request):
+    if request.method == 'GET':
+        commits = request.GET['commits']
+        return render(request, 'OpenBRR/result.html', {'commits': commits})
+
 #-- Función que devuelve la fecha en formato correcto
 def to_valid_format(date):
     if (date < 10):
