@@ -28,10 +28,10 @@
                             Valor: <input type="number" name="valor-commits" value=16.6 step=0.1 min="0" max="100" id="valor-commits" oninput="edit_max_value_community('commits');">
                             <br></p>
                 {% elif key == 'forks' %}
-                    <p>Número de forks: <input type="text" value="{{ value }}" id="forks" oninput="save_input_community('forks');">
+                    <p>Número de forks: <input type="text" value="{{ value }}" name="forks" id="forks" oninput="save_input_community('forks');">
                         Valor:<input type="number" name="valor-forks" value=16.6 step=0.1 min="0" max="100" id="valor-forks" oninput="edit_max_value_community('forks')"><br></p>
                 {% elif key == 'subscribers' %}
-                    <p>Número de suscriptores: <input type="text" value="{{ value }}" id="suscriptores" oninput="save_input_community('suscriptores');">
+                    <p>Número de suscriptores: <input type="text" value="{{ value }}" name="suscriptores" id="suscriptores" oninput="save_input_community('suscriptores');">
                         Valor:<input type="number" name="valor-suscriptores" value=16.6 step=0.1 id="valor-suscriptores" oninput="edit_max_value_community('suscriptores');"><br></p>
                 {% elif key == 'organization' %}
                     <p>¿Pertenece a una organización?<br>

@@ -9,8 +9,14 @@
 <body>
     <h1>Resultados del análisis</h1>
     <div>
-        {% with num=commits %}
-        Número de commits: {{ num }}
+        <h2>RESULTADOS DE COMUNIDAD:</h2>
+        {% with nota_commits=nota_commits nota_forks=nota_forks nota_suscriptores=nota_suscriptores nota_org=nota_org nota_update=nota_update nota_comunidad=nota_comunidad %}
+            <p>Nota de los commits: {{ nota_commits }} <br>
+            Nota de los forks: {{ nota_forks }} <br>
+            Nota de los suscriptores: {{ nota_suscriptores }} <br>
+            Nota de la organización: {{ nota_org }} <br>
+            Nota de la última actualización: {{ nota_update }} <br></p>
+            <h3>NOTA FINAL DEL APARTADO COMUNIDAD: {{ nota_comunidad }}</h3>
         {% endwith %}
     </div>
 </body>
