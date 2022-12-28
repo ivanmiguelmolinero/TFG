@@ -16,7 +16,22 @@
             Nota de los suscriptores: {{ nota_suscriptores }} <br>
             Nota de la organización: {{ nota_org }} <br>
             Nota de la última actualización: {{ nota_update }} <br></p>
-            <h3>NOTA FINAL DEL APARTADO COMUNIDAD: {{ nota_comunidad }}</h3>
+            <h3>NOTA FINAL DEL APARTADO COMUNIDAD: {{ nota_comunidad }} <br></h3>
+        {% endwith %}
+        <h2>RESULTADOS DE SEGURIDAD:</h2>
+        {% with nota_licencia=nota_licencia nota_viewers=nota_viewers nota_problemas=nota_problemas nota_vulnerabilidad=nota_vulnerabilidad nota_seguridad=nota_seguridad %}
+        <p>Nota de la licencia: {{ nota_licencia }} <br>
+        Nota de los viewers: {{ nota_viewers }} <br>
+        Nota de los problemas: {{ nota_problemas }} <br>
+        Nota de la vulnerabilidad: {{ nota_vulnerabilidad }} <br></p>
+        <h3>NOTA FINAL DEL APARTADO SEGURIDAD: {{ nota_seguridad }}</h3>
+        {% endwith %}
+        <h2>RESULTADOS DE FUNCIONALIDAD:</h2>
+        {% with nota_tamaño=nota_tamaño nota_plantilla=nota_plantilla nota_proyectos=nota_proyectos nota_funcionalidad=nota_funcionalidad %}
+        <p>Nota del tamaño: {{ nota_tamaño }} <br>
+        Nota de la plantilla: {{ nota_plantilla }} <br>
+        Nota de los proyectos: {{ nota_proyectos }} <br></p>
+        <h3>NOTA FINAL DEL APARTADO FUNCIONALIDAD: {{ nota_funcionalidad }}</h3>
         {% endwith %}
     </div>
 </body>

@@ -67,17 +67,17 @@
                         {% endif %}
                         Valor:<input type="number" name="valor-licencia" value=16.6 step=0.1 id="valor-licencia" oninput="edit_max_value_security('licencia');"></p><br>
                 {% elif key == 'viewers' %}
-                    <p>Personas que han visto este repositorio: <input type="text" value="{{ value }}" id="viewers" oninput="save_input_security('viewers')">
+                    <p>Personas que han visto este repositorio: <input type="text" name="viewers" value="{{ value }}" id="viewers" oninput="save_input_security('viewers')">
                         Valor:<input type="number" name="valor-viewers" value=16.6 step=0.1 id="valor-viewers" oninput="edit_max_value_security('viewers');"><br></p>
                 {% elif key == 'issues' %}
                     <p>¿Tiene problemas abiertos?<br>
                         {% if value == 'No' %}
                             <input type="radio" value="Sí" name="issues" id="problemas-sí" oninput="save_input_security('problemas-sí');"> Sí  
-                            <input type="text" placeholder="Número de problemas" id="n_problemas" oninput="save_input_security('n_problemas');">
+                            <input type="text" placeholder="Número de problemas" name="n_problemas" id="n_problemas" oninput="save_input_security('n_problemas');">
                             <input type="radio" value="No" name="issues" id="problemas-no" oninput="save_input_security('problemas-no');" checked> No
                         {% else %}
                             <input type="radio" value="Sí" name="issues" id="problemas-sí" oninput="save_input_security('problemas-sí');" checked> Sí 
-                            <input type="text" value="{{ issues }}">
+                            <input type="text" name="n_problemas" id="n_problemas"  value="{{ issues }}" oninput="save_input_security('n_problemas');">
                             <input type="radio" value="No" name="issues" id="problemas-no" oninput="save_input_security('problemas-no');"> No
                         {% endif %}
                         Valor:<input type="number" name="valor-problemas" value=16.6 step=0.1 id="valor-problemas" oninput="edit_max_value_security('problemas');"></p><br>

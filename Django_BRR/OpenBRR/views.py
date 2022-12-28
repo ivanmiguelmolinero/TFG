@@ -106,6 +106,8 @@ def post_repo(request):
 
 def get_data(request):
     if request.method == 'GET':
+
+        # Valoración de la pestaña comunidad
         commits = int(request.GET['commits'])
         valor_commits = float(request.GET['valor-commits'])
         nota_commits = calc_nota_commits(commits) 
@@ -126,13 +128,57 @@ def get_data(request):
         valor_update = float(request.GET['valor-actualización'])
         nota_upd = calc_nota_update(update)
         nota_upd_pond = nota_upd * (valor_update/100) #-- Nota ponderada con su peso
-        nota_comunidad = nota_commits_pond + nota_forks_pond + nota_sus_pond + nota_org_pond + nota_upd_pond
+        nota_comunidad = round(nota_commits_pond + nota_forks_pond + nota_sus_pond + nota_org_pond + nota_upd_pond, 2)
+
+        # Valoración de la pestaña seguridad
+        licencia = request.GET['license']
+        valor_licencia = float(request.GET['valor-licencia'])
+        nota_licencia = calc_nota_licencia(licencia)
+        nota_licencia_pond = nota_licencia * (valor_licencia/100)
+        viewers = int(request.GET['viewers'])
+        valor_viewers = float(request.GET['valor-viewers'])
+        nota_viewers = calc_nota_viewers(viewers)
+        nota_viewers_pond = nota_viewers * (valor_viewers/100)
+        issues = request.GET['issues']
+        n_issues = int(request.GET['n_problemas'])
+        valor_problemas = float(request.GET['valor-problemas'])
+        nota_problemas = calc_nota_problemas(issues, n_issues)
+        nota_problemas_pond = nota_problemas * (valor_problemas/100)
+        vulnerabilidad = request.GET['vulnerability']
+        valor_vulnerabilidad = float(request.GET['valor-vulnerabilidad'])
+        nota_vulnerabilidad = calc_nota_vulnerabilidad(vulnerabilidad)
+        nota_vulnerabilidad_pond = nota_vulnerabilidad * (valor_vulnerabilidad/100)
+        nota_seguridad = round(nota_licencia_pond + nota_viewers_pond + nota_problemas_pond + nota_vulnerabilidad_pond, 2)
+
+        # Valoración de la pestaña funcionalidad
+        tamaño = int(request.GET['size'])
+        valor_tamaño = float(request.GET['valor-tamaño'])
+        nota_tamaño = calc_nota_tamaño(tamaño)
+        nota_tamaño_pond = nota_tamaño * (valor_tamaño/100)
+        plantilla = request.GET['template']
+        valor_plantilla = float(request.GET['valor-plantilla'])
+        nota_plantilla = calc_nota_plantilla(plantilla)
+        nota_plantilla_pond = nota_plantilla * (valor_plantilla/100)
+        proyectos = request.GET['projects']
+        valor_proyectos = float(request.GET['valor-proyectos'])
+        nota_proyectos = calc_nota_plantilla(proyectos)
+        nota_proyectos_pond = nota_proyectos * (valor_proyectos/100)
+        nota_funcionalidad = round(nota_tamaño_pond + nota_plantilla_pond + nota_proyectos_pond, 2)
         return render(request, 'OpenBRR/result.html', {'nota_commits': nota_commits,
                                                         'nota_forks': nota_forks,
                                                         'nota_suscriptores': nota_sus,
                                                         'nota_org': nota_org,
                                                         'nota_update': nota_upd,
-                                                        'nota_comunidad': nota_comunidad})
+                                                        'nota_comunidad': nota_comunidad,
+                                                        'nota_licencia': nota_licencia,
+                                                        'nota_viewers': nota_viewers,
+                                                        'nota_problemas': nota_problemas,
+                                                        'nota_vulnerabilidad': nota_vulnerabilidad,
+                                                        'nota_seguridad': nota_seguridad,
+                                                        'nota_tamaño': nota_tamaño,
+                                                        'nota_plantilla': nota_plantilla,
+                                                        'nota_proyectos': nota_proyectos,
+                                                        'nota_funcionalidad': nota_funcionalidad})
 
 def calc_nota_commits(com):
     # Calculamos la nota de los commits
@@ -150,11 +196,11 @@ def calc_nota_commits(com):
 
 def calc_nota_forks(forks):
     # Calculamos la nota de los forks
-    if (forks > 0) or (forks <= 50):
+    if (forks > 0) and (forks <= 50):
         nota_forks = 2.5
-    elif (forks > 500) or (forks <= 150):
+    elif (forks > 500) and (forks <= 150):
         nota_forks = 5
-    elif (forks > 160) or (forks <= 500):
+    elif (forks > 160) and (forks <= 500):
         nota_forks = 7.5
     elif forks > 500:
         nota_forks = 10
@@ -164,11 +210,11 @@ def calc_nota_forks(forks):
 
 def calc_nota_sus(sus):
     # Calculamos la nota de las suscripciones
-    if (sus > 20) or (sus <= 20):
+    if (sus > 5) and (sus <= 20):
         nota_sus = 2.5
-    elif (sus > 20) or (sus <= 60):
+    elif (sus > 20) and (sus <= 60):
         nota_sus = 5
-    elif (sus > 60) or (sus <= 100):
+    elif (sus > 60) and (sus <= 100):
         nota_sus = 7.5
     elif sus > 100:
         nota_sus = 10
@@ -204,9 +250,82 @@ def calc_nota_update(upd):
         nota_upd = 2.5 # No se ha actualizado este año
     return nota_upd
 
-def calc_nota_comunidad(com, v_com, forks, v_forks, sus, v_sus, org, v_org, upd, v_upd):
-    pass
+def calc_nota_licencia(licencia):
+    # Calculamos la nota de la licencia
+    if licencia == 'Sí':
+        nota_licencia = 10
+    else:
+        nota_licencia = 0
+    return nota_licencia
 
+def calc_nota_viewers(vw):
+    # Calculamos la nota de los viewers
+    if (vw > 200) and (vw <= 500):
+        nota_vw = 2.5
+    elif (vw > 500) and (vw <= 800):
+        nota_vw = 5
+    elif (vw > 800) and (vw <= 1200):
+        nota_vw = 7.5
+    elif vw > 1200:
+        nota_vw = 10
+    else:
+        nota_vw = 0
+    return nota_vw
+
+def calc_nota_problemas(issues ,problemas):
+    # Calculamos la nota de los problemas
+    if issues == 'Sí':
+        if (problemas > 50) and (problemas <= 100):
+            nota_problemas = 7.5
+        elif (problemas > 100) and (problemas <= 250):
+            nota_problemas = 5
+        elif (problemas > 250) and (problemas <= 500):
+            nota_problemas = 2.5
+        elif problemas > 500:
+            nota_problemas = 0
+        else:
+            nota_problemas = 10
+    else:
+        nota_problemas = 10
+    return nota_problemas
+
+def calc_nota_vulnerabilidad(vulnerabilidad):
+    # Calculamos la nota de la vulnerabilidad
+    if vulnerabilidad == 'Sí':
+        nota_vulnerabilidad = 0
+    else:
+        nota_vulnerabilidad = 10
+    return nota_vulnerabilidad
+
+def calc_nota_tamaño(size):
+    # Calculamos la nota del tamaño
+    if (size > 1000) and (size <= 5000):
+        nota_tamaño = 7.5
+    elif (size > 5000) and (size <= 10000):
+        nota_tamaño = 5
+    elif (size > 10000) and (size <= 15000):
+        nota_tamaño = 2.5
+    elif size > 15000:
+        nota_tamaño = 0
+    else:
+        nota_tamaño = 10
+    return nota_tamaño
+
+def calc_nota_plantilla(plantilla):
+    # Calculamos la nota de la plantilla
+    if plantilla == 'Sí':
+        nota_plantilla = 10
+    else:
+        nota_plantilla  = 0
+    return nota_plantilla
+
+def calc_nota_proyectos(proyectos):
+    # Calculamos la nota de los proyectos
+    if proyectos == 'Sí':
+        nota_proyectos = 10
+    else:
+        nota_proyectos  = 0
+    return nota_proyectos
 
 #-- Función que devuelve la fecha en formato correcto
 def to_valid_format(date):
