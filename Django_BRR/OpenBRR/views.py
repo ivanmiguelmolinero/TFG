@@ -140,7 +140,10 @@ def get_data(request):
         nota_viewers = calc_nota_viewers(viewers)
         nota_viewers_pond = nota_viewers * (valor_viewers/100)
         issues = request.GET['issues']
-        n_issues = int(request.GET['n_problemas'])
+        if issues == 'Sí': #Si hay problemas obtenemos su número
+            n_issues = int(request.GET['n_problemas'])
+        else: # Si no lo dejamos a 0
+            n_issues = 0
         valor_problemas = float(request.GET['valor-problemas'])
         nota_problemas = calc_nota_problemas(issues, n_issues)
         nota_problemas_pond = nota_problemas * (valor_problemas/100)
