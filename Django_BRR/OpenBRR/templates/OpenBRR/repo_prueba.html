@@ -180,7 +180,7 @@
             <h1>USABILIDAD:</h1>
             {% for key, value in post_usab.items %}
                 {% if key == 'num_languages' %}
-                    <p>Número de lenguajes utilizados: <input type="number" id="num_languages" min="0" max="10" value="{{ value }}" oninput="save_input_usability('num_languages');">
+                    <p>Número de lenguajes utilizados: <input type="number" name="num-languages" id="num_languages" min="0" max="20" value="{{ value }}" oninput="save_input_usability('num_languages');">
                     Valor:<input type="number" name="valor-lenguajes" value=16.6 step=0.1 id="valor-lenguajes" oninput="edit_max_value_usability('lenguajes');"></p>
                 {% elif key == 'readme' %}
                     {% if value == 'Sí' %}

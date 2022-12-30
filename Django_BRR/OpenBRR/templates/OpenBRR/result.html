@@ -20,18 +20,46 @@
         {% endwith %}
         <h2>RESULTADOS DE SEGURIDAD:</h2>
         {% with nota_licencia=nota_licencia nota_viewers=nota_viewers nota_problemas=nota_problemas nota_vulnerabilidad=nota_vulnerabilidad nota_seguridad=nota_seguridad %}
-        <p>Nota de la licencia: {{ nota_licencia }} <br>
-        Nota de los viewers: {{ nota_viewers }} <br>
-        Nota de los problemas: {{ nota_problemas }} <br>
-        Nota de la vulnerabilidad: {{ nota_vulnerabilidad }} <br></p>
-        <h3>NOTA FINAL DEL APARTADO SEGURIDAD: {{ nota_seguridad }}</h3>
+            <p>Nota de la licencia: {{ nota_licencia }} <br>
+            Nota de los viewers: {{ nota_viewers }} <br>
+            Nota de los problemas: {{ nota_problemas }} <br>
+            Nota de la vulnerabilidad: {{ nota_vulnerabilidad }} <br></p>
+            <h3>NOTA FINAL DEL APARTADO SEGURIDAD: {{ nota_seguridad }}</h3>
         {% endwith %}
         <h2>RESULTADOS DE FUNCIONALIDAD:</h2>
         {% with nota_tamaño=nota_tamaño nota_plantilla=nota_plantilla nota_proyectos=nota_proyectos nota_funcionalidad=nota_funcionalidad %}
-        <p>Nota del tamaño: {{ nota_tamaño }} <br>
-        Nota de la plantilla: {{ nota_plantilla }} <br>
-        Nota de los proyectos: {{ nota_proyectos }} <br></p>
-        <h3>NOTA FINAL DEL APARTADO FUNCIONALIDAD: {{ nota_funcionalidad }}</h3>
+            <p>Nota del tamaño: {{ nota_tamaño }} <br>
+            Nota de la plantilla: {{ nota_plantilla }} <br>
+            Nota de los proyectos: {{ nota_proyectos }} <br></p>
+            <h3>NOTA FINAL DEL APARTADO FUNCIONALIDAD: {{ nota_funcionalidad }}</h3>
+        {% endwith %}
+        <h2>RESULTADOS DE SOPORTE:</h2>
+        {% with nota_wiki=nota_wiki nota_homepage=nota_homepage nota_soporte=nota_soporte %}
+            <p>Nota de la wiki: {{ nota_wiki }} <br>
+            Nota de la homepage: {{ nota_homepage }} <br></p>
+            <h3>NOTA FINAL DEL APARTADO SOPORTE: {{ nota_soporte }}</h3>
+        {% endwith %}
+        <h2>RESULTADOS DE CALIDAD:</h2>
+        {% with nota_seguidores_own=nota_seguidores_own nota_repositorios_own=nota_repositorios_own nota_seguidores_org=nota_seguidores_org nota_repositorios_org=nota_repositorios_org nota_calidad=nota_calidad %}
+            <p>Nota de los seguidores del dueño: {{ nota_seguidores_own }} <br>
+            Nota de los repositorios del dueño: {{ nota_repositorios_own }} <br>
+            Nota de los seguidores de la organización: {{ nota_seguidores_org }} <br>
+            Nota de los repositorios del dueño: {{ nota_repositorios_org }}</p>
+            <h3>NOTA FINAL DEL APARTADO CALIDAD: {{ nota_calidad }}</h3>
+        {% endwith %}
+        <h2>RESULTADOS DE USABILIDAD:</h2>
+        {% with nota_num_lenguajes=nota_num_lenguajes nota_readme=nota_readme nota_usabilidad=nota_usabilidad %}
+            <p>Nota del número de lenguajes utlizados: {{ nota_num_lenguajes }} <br>
+            Nota del readme: {{ nota_readme }} <br></p>
+            <h3>NOTA FINAL DEL APARTADO USABILIDAD: {{ nota_usabilidad }}</h3>
+        {% endwith %}
+        <h2>RESULTADOS DE ADOPCIÓN:</h2>
+        {% with nota_descargas=nota_descargas nota_adopcion=nota_adopcion %}
+            <p>Nota del número de las descargas: {{ nota_descargas }} <br></p>
+            <h3>NOTA FINAL DEL APARTADO ADOPCIÓN: {{ nota_adopcion }}</h3>
+        {% endwith %}
+        {% with nota_final=nota_final %}
+            <h1>CALIFICACIÓN FINAL DEL REPOSITORIO: {{ nota_final }}</h1>
         {% endwith %}
     </div>
 </body>

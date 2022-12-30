@@ -167,6 +167,57 @@ def get_data(request):
         nota_proyectos = calc_nota_plantilla(proyectos)
         nota_proyectos_pond = nota_proyectos * (valor_proyectos/100)
         nota_funcionalidad = round(nota_tamaño_pond + nota_plantilla_pond + nota_proyectos_pond, 2)
+
+        # Valoración de la pestaña de soporte
+        wiki = request.GET['wiki']
+        valor_wiki = float(request.GET['valor-wiki'])
+        nota_wiki = calc_nota_wiki(wiki)
+        nota_wiki_pond = nota_wiki * (valor_wiki/100)
+        homepage = request.GET['homepage']
+        valor_homepage = float(request.GET['valor-homepage'])
+        nota_homepage = calc_nota_homepage(homepage)
+        nota_homepage_pond = nota_homepage * (valor_homepage/100)
+        nota_soporte = round(nota_wiki_pond + nota_homepage_pond, 2)
+
+        # Valoración de la pestaña de calidad
+        seguidores_own = int(request.GET['followers_owner'])
+        valor_seguidores_own = float(request.GET['valor-seg-dueño'])
+        nota_seguidores_own = calc_nota_seguidores(seguidores_own)
+        nota_seguidores_own_pond = nota_seguidores_own * (valor_seguidores_own/100)
+        repositorios_own = int(request.GET['n_repos'])
+        valor_repositorios_own = float(request.GET['valor-repos-dueño'])
+        nota_repositorios_own = calc_nota_repos(repositorios_own)
+        nota_repositorios_own_pond = nota_repositorios_own * (valor_repositorios_own/100)
+        seguidores_org = int(request.GET['followers_org'])
+        valor_seguidores_org = float(request.GET['valor-seg-org'])
+        nota_seguidores_org = calc_nota_seguidores(seguidores_org)
+        nota_seguidores_org_pond = nota_seguidores_org * (valor_seguidores_org/100)
+        repositorios_org = int(request.GET['n_repos_org'])
+        valor_repositorios_org = float(request.GET['valor-repos-org'])
+        nota_repositorios_org = calc_nota_repos(repositorios_org)
+        nota_repositorios_org_pond = nota_repositorios_org * (valor_repositorios_org/100)
+        nota_calidad = round(nota_seguidores_own_pond + nota_repositorios_own_pond + nota_repositorios_org_pond + nota_seguidores_org_pond, 2)
+
+        # Valoración de la pestaña de usabilidad
+        num_lenguajes = int(request.GET['num-languages'])
+        valor_num_lenguajes = float(request.GET['valor-lenguajes'])
+        nota_num_lenguajes = calc_nota_num_lenguajes(num_lenguajes)
+        nota_num_lenguajes_pond = nota_num_lenguajes * (valor_num_lenguajes/100)
+        readme = request.GET['readme']
+        valor_readme = float(request.GET['valor-readme'])
+        nota_readme = calc_nota_readme(readme)
+        nota_readme_pond = nota_readme * (valor_readme/100)
+        nota_usabilidad = round(nota_num_lenguajes_pond + nota_readme_pond, 2)
+
+        # Valoración de la pestaña de adopción
+        descargas = request.GET['downloads']
+        valor_descargas = float(request.GET['valor-descargas'])
+        nota_descargas = calc_nota_descargas(descargas)
+        nota_descargas_pond = nota_descargas * (valor_descargas/100)
+        nota_adopcion = nota_descargas_pond
+
+        # Cálculo de la nota final del repositorio sobre 5
+        nota_final = round(((nota_comunidad + nota_seguridad + nota_funcionalidad + nota_soporte + nota_calidad + nota_usabilidad + nota_adopcion)/7)*0.5, 2)
         return render(request, 'OpenBRR/result.html', {'nota_commits': nota_commits,
                                                         'nota_forks': nota_forks,
                                                         'nota_suscriptores': nota_sus,
@@ -181,7 +232,21 @@ def get_data(request):
                                                         'nota_tamaño': nota_tamaño,
                                                         'nota_plantilla': nota_plantilla,
                                                         'nota_proyectos': nota_proyectos,
-                                                        'nota_funcionalidad': nota_funcionalidad})
+                                                        'nota_funcionalidad': nota_funcionalidad,
+                                                        'nota_wiki': nota_wiki,
+                                                        'nota_homepage': nota_homepage,
+                                                        'nota_soporte': nota_soporte,
+                                                        'nota_seguidores_own': nota_seguidores_own,
+                                                        'nota_repositorios_own': nota_repositorios_own,
+                                                        'nota_seguidores_org': nota_seguidores_org,
+                                                        'nota_repositorios_org': nota_repositorios_org,
+                                                        'nota_calidad': nota_calidad,
+                                                        'nota_num_lenguajes': nota_num_lenguajes,
+                                                        'nota_readme': nota_readme,
+                                                        'nota_usabilidad': nota_usabilidad,
+                                                        'nota_descargas': nota_descargas,
+                                                        'nota_adopcion': nota_adopcion,
+                                                        'nota_final': nota_final})
 
 def calc_nota_commits(com):
     # Calculamos la nota de los commits
@@ -329,6 +394,80 @@ def calc_nota_proyectos(proyectos):
     else:
         nota_proyectos  = 0
     return nota_proyectos
+
+def calc_nota_wiki(wiki):
+    # Calculamos la nota de la wiki
+    if wiki == 'Sí':
+        nota_wiki = 10
+    else:
+        nota_wiki  = 0
+    return nota_wiki
+
+def calc_nota_homepage(homepage):
+    # Calculamos la nota de la hompeage
+    if homepage == 'Sí':
+        nota_homepage = 10
+    else:
+        nota_homepage  = 0
+    return nota_homepage
+
+def calc_nota_seguidores(seguidores):
+    # Calculamos la nota de los seguidores del dueño y de la organización
+    if (seguidores > 50) and (seguidores <= 250):
+        nota_seguidores = 2.5
+    elif (seguidores > 250) and (seguidores <= 750):
+        nota_seguidores = 5
+    elif (seguidores > 750) and (seguidores <= 1250):
+        nota_seguidores = 2.5
+    elif seguidores > 1250:
+        nota_seguidores = 10
+    else:
+        nota_seguidores = 0
+    return nota_seguidores
+
+def calc_nota_repos(repos):
+    # Calculamos la nota de los repositorios del dueño y de la organización
+    if (repos > 5) and (repos <= 15):
+        nota_repos = 2.5
+    elif (repos > 15) and (repos <= 30):
+        nota_repos = 5
+    elif (repos > 30) and (repos <= 50):
+        nota_repos = 2.5
+    elif repos > 50:
+        nota_repos = 10
+    else:
+        nota_repos = 0
+    return nota_repos
+
+def calc_nota_num_lenguajes(num):
+    # Calculamos la nota del número de lenguajes utilizados en el repositorio
+    if (num > 3) and (num <= 6):
+        nota_lenguajes = 7.5
+    elif (num > 6) and (num <= 8):
+        nota_lenguajes = 5
+    elif (num > 8) and (num <= 12):
+        nota_lenguajes = 2.5
+    elif num > 12:
+        nota_lenguajes = 0
+    else:
+        nota_lenguajes = 10
+    return nota_lenguajes
+
+def calc_nota_readme(readme):
+    # Calculamos la nota del readme
+    if readme == 'Sí':
+        nota_readme = 10
+    else:
+        nota_readme  = 0
+    return nota_readme
+
+def calc_nota_descargas(descargas):
+    # Calculamos la nota de las descargas
+    if descargas == 'Sí':
+        nota_descargas = 10
+    else:
+        nota_descargas  = 0
+    return nota_descargas
 
 #-- Función que devuelve la fecha en formato correcto
 def to_valid_format(date):
