@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
+from django.core.mail import send_mail
 from datetime import datetime
 from github.GithubException import RateLimitExceededException
 from .models import ModelRepo
@@ -28,6 +29,7 @@ def post_repo(request):
         posts_qual = {}
         posts_usab = {}
         posts_adop = {}
+
         try:
             # Obtenemos el repositorio introducido por el usuario
             repo = get_repository(request.GET['text'])
@@ -105,6 +107,9 @@ def post_repo(request):
         return render(request, 'OpenBRR/main.html', {})
 
 def get_data(request):
+    #Lista para enviar los resultados
+    user_dest = []
+
     if request.method == 'GET':
 
         # Valoración de la pestaña comunidad
@@ -214,10 +219,52 @@ def get_data(request):
         valor_descargas = float(request.GET['valor-descargas'])
         nota_descargas = calc_nota_descargas(descargas)
         nota_descargas_pond = nota_descargas * (valor_descargas/100)
-        nota_adopcion = nota_descargas_pond
+        nota_adopcion = round(nota_descargas_pond, 2)
 
         # Cálculo de la nota final del repositorio sobre 5
         nota_final = round(((nota_comunidad + nota_seguridad + nota_funcionalidad + nota_soporte + nota_calidad + nota_usabilidad + nota_adopcion)/7)*0.5, 2)
+
+        # Formamos el mensaje y lo enviamos
+        mensaje = ('COMUNIDAD\n' + 'Nota de los commits: ' + str(nota_commits) +
+                    '\nNota de los forks: ' + str(nota_forks) +
+                    '\nNota de los suscriptores: ' + str(nota_sus) +
+                    '\nNota de la organización: ' + str(nota_org) +
+                    '\nNota update: ' + str(nota_upd) +
+                    '\nNOTA FINAL DE LA COMUNIDAD: ' + str(nota_comunidad) +
+                    '\n\nSEGURIDAD\n' +  'Nota de la licencia: ' + str(nota_licencia) +
+                    '\nNota de los viewers: ' + str(nota_viewers) +
+                    '\nNota de los problemas: ' + str(nota_problemas) +
+                    '\nNota de la vulnerabilidad: ' + str(nota_vulnerabilidad) +
+                    '\nNOTA FINAL DE LA SEGURIDAD: ' + str(nota_seguridad) +
+                    '\n\nFUNCIONALIDAD\n' + 'Nota del tamaño: ' + str(nota_tamaño) +
+                    '\nNota de la plantilla: ' + str(nota_plantilla) +
+                    '\nNota de los proyectos: ' + str(nota_proyectos) +
+                    '\nNOTA FINAL DE LA FUNCIONALIDAD: ' + str(nota_funcionalidad) +
+                    '\n\nSOPORTE\n' + 'Nota de la wiki: ' + str(nota_wiki) +
+                    '\nNota de la homepage: ' + str(nota_homepage) +
+                    '\nNOTA FINAL DE SOPORTE: ' + str(nota_soporte) + 
+                    '\n\nCALIDAD\n' + 'Nota de los seguidores del dueño: ' + str(nota_seguidores_own) +
+                    '\nNota de los repositorios del dueño: ' + str(nota_repositorios_own) +
+                    '\nNota de los seguidores de la organización: ' + str(nota_seguidores_org) +
+                    '\nNota de los repositorios de la organización: ' + str(nota_repositorios_org) +
+                    '\nNOTA FINAL DE CALIDAD: ' + str(nota_calidad) +
+                    '\n\nUSABILIDAD\n' + 'Nota del número de lenguajes: ' + str(nota_num_lenguajes) +
+                    '\nNota del README: ' + str(nota_readme) +
+                    '\nNOTA FINAL DE USABILIDAD: ' + str(nota_usabilidad) +
+                    '\n\nADOPCIÓN\n' + 'Nota de las descargas: ' + str(nota_descargas) +
+                    '\nNOTA FINAL DE ADOPCIÓN: ' + str(nota_adopcion) +
+                    '\n\nNOTA FINAL DEL REPOSITORIO: ' + str(nota_final))
+        user_dest.append(request.GET['email'])
+        try:
+            send_mail(
+                'Resultado de los análisis del repositorio', # Asunto
+                mensaje, # Cuerpo del mensaje
+                'i.miguel.molinero@gmail.com', # Usuario que envía el email
+                user_dest, # Usuario al que se envía el email
+                fail_silently=False,
+            )
+        except:
+            pass
         return render(request, 'OpenBRR/result.html', {'nota_commits': nota_commits,
                                                         'nota_forks': nota_forks,
                                                         'nota_suscriptores': nota_sus,
