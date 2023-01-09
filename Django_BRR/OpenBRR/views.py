@@ -13,7 +13,7 @@ from .analize_repo import get_repository, get_downloads, get_licencia, get_templ
 def post_main(request):
     if request.method == 'POST':
         post = get_object_or_404(ModelRepo)
-        return render(request, 'OpenBRR/repo_prueba.html', {'post': post})
+        return render(request, 'OpenBRR/repo_data.html', {'post': post})
     else:
         form = RepoGithub()
         return render(request, 'OpenBRR/main.html', {'form': form})
@@ -83,7 +83,7 @@ def post_repo(request):
 
             # PESTAÑA DE ADOPCIÓN
             posts_adop['downloads'] = get_downloads(repo)
-            return render(request, 'OpenBRR/repo_prueba.html', 
+            return render(request, 'OpenBRR/repo_data.html', 
                         {'post': posts, 'date': fecha_update, 'now': now,
                         'post_sec': posts_sec, 'issues': issues_count,
                         'post_func': posts_func,
@@ -93,10 +93,10 @@ def post_repo(request):
                         'post_adop': posts_adop})
         except RateLimitExceededException:
             posts['error'] = ('Error: Se ha excedido el número de peticiones a GitHub. Intentelo de nuevo más tarde.')
-            return render(request, 'OpenBRR/repo_prueba.html', {'post': posts})
+            return render(request, 'OpenBRR/repo_data.html', {'post': posts})
         except Exception:
             posts['error'] = ("Error: " + str(Exception.args))
-            return render(request, 'OpenBRR/repo_prueba.html', {'post': posts, 'now': now,
+            return render(request, 'OpenBRR/repo_data.html', {'post': posts, 'now': now,
                         'post_sec': posts_sec, 'issues': issues_count,
                         'post_func': posts_func,
                         'post_supp': posts_supp,
