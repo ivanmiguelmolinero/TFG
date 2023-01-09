@@ -5,17 +5,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="../../static/js/datos.js"></script>
+    <link rel="stylesheet" href="../../static/css/data.css">
     <title>Seguimos probando</title>
 </head>
 <body onload="main();">
     <p id="botones">
-        <button id="mostrar-comunidad">Mostrar pestaña de comunidad</button>
-        <button id="mostrar-seguridad">Mostrar pestaña de seguridad</button>
-        <button id="mostrar-funcionalidad">Mostrar pestaña de funcionalidad</button>
-        <button id="mostrar-soporte">Mostrar pestaña de soporte</button>
-        <button id="mostrar-calidad">Mostrar pestaña de calidad</button>
-        <button id="mostrar-usabilidad">Mostrar pestaña de usabilidad</button>
-        <button id="mostrar-adopcion">Mostrar pestaña de adopción</button>
+        <button class="boton_brr" id="mostrar-comunidad">Mostrar pestaña de comunidad</button>
+        <button class="boton_brr" id="mostrar-seguridad">Mostrar pestaña de seguridad</button>
+        <button class="boton_brr" id="mostrar-funcionalidad">Mostrar pestaña de funcionalidad</button>
+        <button class="boton_brr" id="mostrar-soporte">Mostrar pestaña de soporte</button>
+        <button class="boton_brr" id="mostrar-calidad">Mostrar pestaña de calidad</button>
+        <button class="boton_brr" id="mostrar-usabilidad">Mostrar pestaña de usabilidad</button>
+        <button class="boton_brr" id="mostrar-adopcion">Mostrar pestaña de adopción</button>
     </p>
     <form action="get-data" method="get"> {% csrf_token %}
         {{ form.as_p }}
@@ -211,7 +212,9 @@
             {% endfor %}
         </div>
         Dirección de correo a la que enviar los resultados: <input type="text" name="email" id="email" placeholder="direccion@ejemplo.com">
-        <button type="submit" class="save btn btn-default">Enviar datos</button>
+        <div class="wrap">
+            <button type="submit" class="button">Enviar datos</button>
+        </div>
     </form>
 </body>
 </html>
