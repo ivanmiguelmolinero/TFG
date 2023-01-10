@@ -13,9 +13,17 @@ p {
 
 .wrap {
     height: 100%;
-    display: flex;
+    text-align: center;
     align-items: center;
     justify-content: center;
+    border-radius: 12px;
+    border-style: dashed;
+    color: #ffffff;
+    background-color: #000000;
+    margin-left: 25%;
+    margin-right: 25%;
+    margin-top: 2%;
+    padding: 2%;
   }
   
   .button {

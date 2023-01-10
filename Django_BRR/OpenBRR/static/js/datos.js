@@ -60,12 +60,12 @@ function main () {
             text_community = community.innerHTML; //-- Guardamos los cambios hechos por el usuario
             community.innerHTML = ""; //-- ...los ocultamos
             boton_comunidad.innerHTML = "Mostrar pestaña de comunidad";
+            set_style(community, mostrando_com);
             mostrando_com = false; //-- Cambiamos el booleano porque ya no lo estamos mostrando
         } else { //-- Si no se están mostrando...
             community.innerHTML = text_community; //-- ...los desplegamos
             boton_comunidad.innerHTML = "Ocultar pestaña de comunidad";
-            //var valor_commits = document.getElementById("valor-commits");
-            //console.log(valor_commits.getAttribute('max'));
+            set_style(community, mostrando_com);
             mostrando_com = true; //-- Cambiamos el booleano porque ahora lo estamos mostrando
         }
     }
@@ -75,10 +75,12 @@ function main () {
             text_security = security.innerHTML; //-- Guardamos los cambios hechos por el usuario
             security.innerHTML = ""; //-- ...los ocultamos
             boton_seguridad.innerHTML = "Mostrar pestaña de seguridad";
+            set_style(security, mostrando_sec);
             mostrando_sec = false; //-- Cambiamos el booleano porque ya no lo estamos mostrando
         } else { //-- Si no se están mostrando...
             security.innerHTML = text_security; //-- ...los desplegamos
             boton_seguridad.innerHTML = "Ocultar pestaña de seguridad";
+            set_style(security, mostrando_sec);
             mostrando_sec = true; //-- Cambiamos el booleano porque ahora lo estamos mostrando
         }
     }
@@ -88,10 +90,12 @@ function main () {
             text_funcionality = funcionality.innerHTML; //-- Guardamos los cambios hechos por el usuario
             funcionality.innerHTML = ""; //-- ...los ocultamos
             boton_funcionalidad.innerHTML = "Mostrar pestaña de funcionalidad";
+            set_style(funcionality, mostrando_func);
             mostrando_func = false; //-- Cambiamos el booleano porque ya no lo estamos mostrando
         } else { //-- Si no se están mostrando...
             funcionality.innerHTML = text_funcionality; //-- ...los desplegamos
             boton_funcionalidad.innerHTML = "Ocultar pestaña de funcionaldidad";
+            set_style(funcionality, mostrando_func);
             mostrando_func = true; //-- Cambiamos el booleano porque ahora lo estamos mostrando
         }
     }
@@ -101,10 +105,12 @@ function main () {
             text_support = support.innerHTML; //-- Guardamos los cambios hechos por el usuario
             support.innerHTML = ""; //-- ...los ocultamos
             boton_soporte.innerHTML = "Mostrar pestaña de soporte";
+            set_style(support, mostrando_supp);
             mostrando_supp = false; //-- Cambiamos el booleano porque ya no lo estamos mostrando
         } else { //-- Si no se están mostrando...
             support.innerHTML = text_support; //-- ...los desplegamos
             boton_soporte.innerHTML = "Ocultar pestaña de soporte";
+            set_style(support, mostrando_supp);
             mostrando_supp = true; //-- Cambiamos el booleano porque ahora lo estamos mostrando
         }
     }
@@ -114,10 +120,12 @@ function main () {
             text_quality = quality.innerHTML; //-- Guardamos los cambios hechos por el usuario
             quality.innerHTML = ""; //-- ...los ocultamos
             boton_calidad.innerHTML = "Mostrar pestaña de calidad";
+            set_style(quality, mostrando_qual);
             mostrando_qual = false; //-- Cambiamos el booleano porque ya no lo estamos mostrando
         } else { //-- Si no se están mostrando...
             quality.innerHTML = text_quality; //-- ...los desplegamos
             boton_calidad.innerHTML = "Ocultar pestaña de calidad";
+            set_style(quality, mostrando_qual);
             mostrando_qual = true; //-- Cambiamos el booleano porque ahora lo estamos mostrando
         }
     }
@@ -127,10 +135,12 @@ function main () {
             text_usability = usability.innerHTML; //-- Guardamos los cambios hechos por el usuario
             usability.innerHTML = ""; //-- ...los ocultamos
             boton_usabilidad.innerHTML = "Mostrar pestaña de usabilidad";
+            set_style(usability, mostrando_usab);
             mostrando_usab = false; //-- Cambiamos el booleano porque ya no lo estamos mostrando
         } else { //-- Si no se están mostrando...
             usability.innerHTML = text_usability; //-- ...los desplegamos
             boton_usabilidad.innerHTML = "Ocultar pestaña de usabilidad";
+            set_style(usability, mostrando_usab);
             mostrando_usab = true; //-- Cambiamos el booleano porque ahora lo estamos mostrando
         }
     }
@@ -140,10 +150,12 @@ function main () {
             text_adoption = adoption.innerHTML; //-- Guardamos los cambios hechos por el usuario
             adoption.innerHTML = ""; //-- ...los ocultamos
             boton_adoption.innerHTML = "Mostrar pestaña de adopción";
+            set_style(adoption, mostrando_adop);
             mostrando_adop = false; //-- Cambiamos el booleano porque ya no lo estamos mostrando
         } else { //-- Si no se están mostrando...
             adoption.innerHTML = text_adoption; //-- ...los desplegamos
             boton_adoption.innerHTML = "Ocultar pestaña de adopción";
+            set_style(adoption, mostrando_adop);
             mostrando_adop = true; //-- Cambiamos el booleano porque ahora lo estamos mostrando
         }
     }
@@ -409,4 +421,32 @@ function get_suma(com_list, element_to_edit) {
 
 function set_max_attribute(element_to_edit, new_max) {
     document.getElementById(element_to_edit).setAttribute('max', new_max);
+}
+
+//-- Función que genera el estilo del bloque dependiendo de si se está mostrando
+function set_style(bloque, mostrando) {
+    if (mostrando) {
+        bloque.style.borderStyle = '';
+        bloque.style.borderRadius = '';
+        bloque.style.borderColor = '';
+        bloque.style.backgroundColor = '';
+        bloque.style.marginLeft = '';
+        bloque.style.marginRight = '';
+        bloque.style.marginTop = '';
+        bloque.style.paddingLeft = '';
+        bloque.style.paddingRight = '';
+        bloque.style.fontSize = '';
+    } else {
+        bloque.style.borderStyle = 'dotted';
+        bloque.style.borderRadius = '12px';
+        bloque.style.borderColor = '#ffffff';
+        bloque.style.backgroundColor = '#4a4b4ba0';
+        bloque.style.marginLeft = '5%';
+        bloque.style.marginRight = '5%';
+        bloque.style.marginTop = '2%';
+        bloque.style.paddingLeft = '3%';
+        bloque.style.paddingRight = '3%';
+        bloque.style.fontSize = '17px';
+        bloque.style.color = '#ffffff';
+    }
 }
