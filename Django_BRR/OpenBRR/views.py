@@ -133,7 +133,7 @@ def get_data(request):
         valor_update = float(request.GET['valor-actualización'])
         nota_upd = calc_nota_update(update)
         nota_upd_pond = nota_upd * (valor_update/100) #-- Nota ponderada con su peso
-        nota_comunidad = round(nota_commits_pond + nota_forks_pond + nota_sus_pond + nota_org_pond + nota_upd_pond, 2)
+        nota_comunidad = round((nota_commits_pond + nota_forks_pond + nota_sus_pond + nota_org_pond + nota_upd_pond)/2, 2)
 
         # Valoración de la pestaña seguridad
         licencia = request.GET['license']
@@ -156,7 +156,7 @@ def get_data(request):
         valor_vulnerabilidad = float(request.GET['valor-vulnerabilidad'])
         nota_vulnerabilidad = calc_nota_vulnerabilidad(vulnerabilidad)
         nota_vulnerabilidad_pond = nota_vulnerabilidad * (valor_vulnerabilidad/100)
-        nota_seguridad = round(nota_licencia_pond + nota_viewers_pond + nota_problemas_pond + nota_vulnerabilidad_pond, 2)
+        nota_seguridad = round((nota_licencia_pond + nota_viewers_pond + nota_problemas_pond + nota_vulnerabilidad_pond)/2, 2)
 
         # Valoración de la pestaña funcionalidad
         tamaño = int(request.GET['size'])
@@ -171,7 +171,7 @@ def get_data(request):
         valor_proyectos = float(request.GET['valor-proyectos'])
         nota_proyectos = calc_nota_plantilla(proyectos)
         nota_proyectos_pond = nota_proyectos * (valor_proyectos/100)
-        nota_funcionalidad = round(nota_tamaño_pond + nota_plantilla_pond + nota_proyectos_pond, 2)
+        nota_funcionalidad = round((nota_tamaño_pond + nota_plantilla_pond + nota_proyectos_pond)/2, 2)
 
         # Valoración de la pestaña de soporte
         wiki = request.GET['wiki']
@@ -182,7 +182,7 @@ def get_data(request):
         valor_homepage = float(request.GET['valor-homepage'])
         nota_homepage = calc_nota_homepage(homepage)
         nota_homepage_pond = nota_homepage * (valor_homepage/100)
-        nota_soporte = round(nota_wiki_pond + nota_homepage_pond, 2)
+        nota_soporte = round((nota_wiki_pond + nota_homepage_pond)/2, 2)
 
         # Valoración de la pestaña de calidad
         seguidores_own = int(request.GET['followers_owner'])
@@ -201,7 +201,7 @@ def get_data(request):
         valor_repositorios_org = float(request.GET['valor-repos-org'])
         nota_repositorios_org = calc_nota_repos(repositorios_org)
         nota_repositorios_org_pond = nota_repositorios_org * (valor_repositorios_org/100)
-        nota_calidad = round(nota_seguidores_own_pond + nota_repositorios_own_pond + nota_repositorios_org_pond + nota_seguidores_org_pond, 2)
+        nota_calidad = round((nota_seguidores_own_pond + nota_repositorios_own_pond + nota_repositorios_org_pond + nota_seguidores_org_pond)/2, 2)
 
         # Valoración de la pestaña de usabilidad
         num_lenguajes = int(request.GET['num-languages'])
@@ -212,14 +212,14 @@ def get_data(request):
         valor_readme = float(request.GET['valor-readme'])
         nota_readme = calc_nota_readme(readme)
         nota_readme_pond = nota_readme * (valor_readme/100)
-        nota_usabilidad = round(nota_num_lenguajes_pond + nota_readme_pond, 2)
+        nota_usabilidad = round((nota_num_lenguajes_pond + nota_readme_pond)/2, 2)
 
         # Valoración de la pestaña de adopción
         descargas = request.GET['downloads']
         valor_descargas = float(request.GET['valor-descargas'])
         nota_descargas = calc_nota_descargas(descargas)
         nota_descargas_pond = nota_descargas * (valor_descargas/100)
-        nota_adopcion = round(nota_descargas_pond, 2)
+        nota_adopcion = round(nota_descargas_pond/2, 2)
 
         # Cálculo de la nota final del repositorio sobre 5
         nota_final = round(((nota_comunidad + nota_seguridad + nota_funcionalidad + nota_soporte + nota_calidad + nota_usabilidad + nota_adopcion)/7)*0.5, 2)

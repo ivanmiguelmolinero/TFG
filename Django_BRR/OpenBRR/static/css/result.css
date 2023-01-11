@@ -1,0 +1,47 @@
+@font-face{
+    font-family: FontTiza;
+    src: url(./Cheveuxdange.ttf);
+}
+
+@font-face{
+    font-family: ComputerFont;
+    src: url(./COMPUTERRobot.ttf);
+}
+
+body {
+    background-image: url('../img/fondo_result.jpg');
+    background-attachment:fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+h1 {
+    justify-content: center;
+    text-align: center;
+    font-family: FontTiza;
+    color: white;
+    font-size: 53px;
+}
+
+#nota {
+    text-align: center;
+    color: red;
+    font-family: ComputerFont;
+    font-size: 30px;
+}
+
+#result_content {
+    border-style: dotted;
+    border-radius: 12px;
+    border-color: #ffffff;
+    background-color: #4a4b4ba0;
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-top:  2%;
+    padding-left:  3%;
+    padding-right:  3%;
+    font-size:  17px;
+    color: #ffffff;
+    text-align: center;
+}
