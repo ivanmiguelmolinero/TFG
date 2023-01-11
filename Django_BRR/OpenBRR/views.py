@@ -12,8 +12,11 @@ from .analize_repo import get_repository, get_downloads, get_licencia, get_templ
 # Función que recibe la petición post_main y devuelve un HTML
 def post_main(request):
     if request.method == 'POST':
-        post = get_object_or_404(ModelRepo)
-        return render(request, 'OpenBRR/repo_data.html', {'post': post})
+        try:
+            post = get_object_or_404(ModelRepo)
+            return render(request, 'OpenBRR/repo_data.html', {'post': post})
+        except:
+            return render(request, 'OpenBRR/error.html', {})
     else:
         form = RepoGithub()
         return render(request, 'OpenBRR/main.html', {'form': form})
@@ -95,14 +98,7 @@ def post_repo(request):
             posts['error'] = ('Error: Se ha excedido el número de peticiones a GitHub. Intentelo de nuevo más tarde.')
             return render(request, 'OpenBRR/repo_data.html', {'post': posts})
         except Exception:
-            posts['error'] = ("Error: " + str(Exception.args))
-            return render(request, 'OpenBRR/repo_data.html', {'post': posts, 'now': now,
-                        'post_sec': posts_sec, 'issues': issues_count,
-                        'post_func': posts_func,
-                        'post_supp': posts_supp,
-                        'post_qual': posts_qual,
-                        'post_usab': posts_usab,
-                        'post_adop': posts_adop})
+            return render(request, 'OpenBRR/error.html', {})
     else:
         return render(request, 'OpenBRR/main.html', {})
 

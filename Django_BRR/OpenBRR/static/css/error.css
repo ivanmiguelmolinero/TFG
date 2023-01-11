@@ -1,0 +1,14 @@
+body {
+    background-image: url('../img/fondo_error.jpg');
+    background-attachment:fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    justify-content: center;
+    text-align: center;
+    color: white;
+}
+
+h1 {
+    line-height: 200px;
+}
