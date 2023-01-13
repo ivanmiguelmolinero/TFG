@@ -1,0 +1,103 @@
+@font-face{
+    font-family: FontTiza;
+    src: url(./Cheveuxdange.ttf);
+}
+
+@font-face{
+    font-family: FontCode;
+    src: url(./Code.ttf);
+}
+
+body {
+    background-image: url('../img/fondo_overflow.jpg');
+    background-attachment:fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    justify-content: center;
+    text-align: center;
+    color: white;
+}
+
+h1 {
+    margin-top: 30%;
+    color: black;
+    font-family: FontTiza;
+    font-size: 40px;
+}
+
+h2 {
+    font-family: FontCode;
+    color: black;
+}
+
+.pulse:hover,
+.pulse:focus {
+  -webkit-animation: pulse 1s;
+          animation: pulse 1s;
+  box-shadow: 0 0 0 2em rgba(255, 255, 255, 0);
+}
+
+@-webkit-keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 var(--hover);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 var(--hover);
+  }
+}
+
+.pulse {
+    --color: #ef6eae;
+    --hover: #ef8f6e;
+}
+.pulse:hover{
+    cursor: pointer;
+}
+
+.raise:hover,
+.raise:focus {
+  box-shadow: 0 0.5em 0.5em -0.4em var(--hover);
+  -webkit-transform: translateY(-0.25em);
+          transform: translateY(-0.25em);
+}
+
+.raise {
+    --color: #ffa260;
+    --hover: #e5ff60;
+  }
+  .slide:hover,
+  .slide:focus {
+    box-shadow: inset 6.5em 0 0 0 var(--hover);
+  }
+
+  .slide {
+    --color: #c8bc66;
+    --hover: #c1c866;
+  }
+  .slide:hover {
+    cursor: pointer;
+  }
+  
+button {
+    color: var(--color);
+    -webkit-transition: 0.25s;
+    transition: 0.25s;
+  }
+  button:hover, button:focus {
+    border-color: var(--hover);
+    color: #fff;
+    cursor: pointer;
+  }
+
+  button {
+    background: none;
+    border: 2px solid;
+    font: inherit;
+    line-height: 1;
+    margin: 0.5em;
+    padding: 1em 2em;
+  }

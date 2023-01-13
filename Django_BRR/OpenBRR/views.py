@@ -95,8 +95,7 @@ def post_repo(request):
                         'post_usab': posts_usab,
                         'post_adop': posts_adop})
         except RateLimitExceededException:
-            posts['error'] = ('Error: Se ha excedido el número de peticiones a GitHub. Intentelo de nuevo más tarde.')
-            return render(request, 'OpenBRR/repo_data.html', {'post': posts})
+            return render(request, 'OpenBRR/overflow.html', {})
         except Exception:
             return render(request, 'OpenBRR/error.html', {})
     else:

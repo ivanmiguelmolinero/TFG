@@ -43,6 +43,22 @@ function main () {
     var text_adoption = adoption.innerHTML;
     adoption.innerHTML = "";
     var boton_adoption = document.getElementById("mostrar-adopcion");
+
+    //-- Formulario
+    var form = document.querySelector("form");
+
+    //-- Evitamos su comportamiento por defecto
+    form.addEventListener("submit", (event) => {
+        // cancela el comportamiento por defecto
+        event.preventDefault();
+
+        if (mostrando_com && mostrando_sec && mostrando_func && mostrando_supp && mostrando_qual && mostrando_usab && mostrando_adop) {
+            form.submit();
+        } else {
+            window.alert("Despliega todas las pestañas antes de enviar los datos");
+            location.reload();
+        }
+    })
     
 
     var mostrando_com = false; //-- Booleano para controlar si se están mostrando los datos de comunidad
