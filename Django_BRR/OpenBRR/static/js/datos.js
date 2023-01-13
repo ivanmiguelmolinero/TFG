@@ -56,7 +56,6 @@ function main () {
             form.submit();
         } else {
             window.alert("Despliega todas las pestañas antes de enviar los datos");
-            location.reload();
         }
     })
     
