@@ -7,9 +7,15 @@ body {
 }
 
 p {
-    justify-content: center;
     display: flex;
+    flex-direction: row;
 }
+
+span {
+  padding-left: 10%;
+  width: 50%;
+}
+
 
 .wrap {
     height: 100%;
