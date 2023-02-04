@@ -217,7 +217,7 @@ def get_data(request):
         nota_adopcion = round(nota_descargas_pond/2, 2)
 
         # Cálculo de la nota final del repositorio sobre 5
-        nota_final = round(((nota_comunidad + nota_seguridad + nota_funcionalidad + nota_soporte + nota_calidad + nota_usabilidad + nota_adopcion)/7)*0.5, 2)
+        nota_final = round(((nota_comunidad + nota_seguridad + nota_funcionalidad + nota_soporte + nota_calidad + nota_usabilidad + nota_adopcion)/7), 2)
 
         # Formamos el mensaje y lo enviamos
         mensaje = ('COMUNIDAD\n' + 'Nota de los commits: ' + str(nota_commits) +
