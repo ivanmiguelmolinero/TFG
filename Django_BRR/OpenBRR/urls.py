@@ -8,11 +8,4 @@ urlpatterns = [
     path('post', views.post_repo, name='post_repo'),
     # Para enviar los datos del repositorio
     path('get-data', views.get_data, name='get_data')
-#     # Para el URL de la imagen muestro la imagen
-#     path('/github.png', views.post_img, name='post_img'),
-#     # Para el URL post/[entero] devuelvo el post correspondiente a ese entero
-#     path('post/<int:pk>/', views.post_detail, name='post_detail'),
-#     # Para la petición de nuevo post devolvemos la view_post
-#     path('post/new', views.post_new, name='post_new'),
-#     path('post/<int:pk>/edit/', views.post_edit, name='post_edit'), 
 ]
