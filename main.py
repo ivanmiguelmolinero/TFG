@@ -20,8 +20,7 @@ if key != "":
         print(repoGit.name, repoGit.get_commits().totalCount)
 else:
     g = Github()
-#repo_path = "PyGithub/PyGithub"
-repo_path = "moodle/moodle"
+repo_path = "PyGithub/PyGithub"
 
 try:
     # Introducimos la dirección del repo

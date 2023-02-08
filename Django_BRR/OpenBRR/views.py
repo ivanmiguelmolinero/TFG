@@ -292,11 +292,12 @@ def get_data(request):
 
 def calc_nota_commits(com):
     # Calculamos la nota de los commits
-    if (com > 20) or (com <= 20):
+    if (com > 0) and (com <= 20):
         nota_commits = 2.5
-    elif (com > 20) or (com <= 60):
+        print(com)
+    elif (com > 20) and (com <= 60):
         nota_commits = 5
-    elif (com > 60) or (com <= 100):
+    elif (com > 60) and (com <= 100):
         nota_commits = 7.5
     elif com > 100:
         nota_commits = 10
