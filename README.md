@@ -16,7 +16,7 @@ Se empezará a instalar y, una vez te indique que la instalación ha sido realiz
 Para configurar la funcionalidad del envío del correo tendremos que dirigirnos a la carpeta ''mysite'' y:
 
 
-* En el fichero settings.py cambiar el valor de ''EMAIL\textunderscore HOST\textunderscore USER'' por tu propia dirección de correo.
+* En el fichero settings.py cambiar el valor de ''EMAIL_HOST_USER'' por tu propia dirección de correo.
 * Crear un fichero ''credentials.env'' donde introduciremos lo siguiente:
 ~~~
 EMAIL_USER = ejemplo@gmail.com
