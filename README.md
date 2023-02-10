@@ -36,7 +36,7 @@ python manage.py runserver
 
 Finalmente para utilizar esta aplicación, abrimos un navegador y nos dirigimos a la dirección ''http://127.0.0.1:8000/'' y se nos abrirá la ventana principal.
 
-Una vez ahí, podremos introducir el repositorio que queramos analizar siguiendo la estructura ''usuario/nombre\textunderscore del\textunderscore repositorio'' por ejemplo ''ivanmiguelmolinero/TFG'' donde ivanmiguelmolinero es el usuario del dueño del repositorio y TFG el nombre del repositorio. Pulsamos en ''ANALIZAR'' y nos llevará a la siguiente ventana.
+Una vez ahí, podremos introducir el repositorio que queramos analizar siguiendo la estructura ''usuario/nombre_del_repositorio'' por ejemplo ''ivanmiguelmolinero/TFG'' donde ivanmiguelmolinero es el usuario del dueño del repositorio y TFG el nombre del repositorio. Pulsamos en ''ANALIZAR'' y nos llevará a la siguiente ventana.
 
 Ya en la ventana de datos nos aparecerán los 7 parámetros analizados ocultos en sus correspondientes pestañas. Para poder verlo debemos pulsar en sus correspondientes botones. Podemos cambiar los datos analizados e incluso la ponderación que aporta cada uno. Al final de esta página, de manera opcional, podremos introducir una dirección de correo a la que nos llegaría un mensaje con los resultados del análisis. Pulsamos en ''ENVIAR DATOS'' y nos llevará a la última ventana.
 
